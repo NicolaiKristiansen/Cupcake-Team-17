@@ -1,41 +1,41 @@
 package app.entities;
 
 public class User {
-    private int userId;
-    private String userName;
+    private int id;
+    private String email;
     private String password;
-    private String role;
+    private float money;
 
-    public User(int userId, String userName, String role, String password) {
-        this.userId = userId;
-        this.userName = userName;
-        this.role = role;
+    public User(int id, String email,  String password,float money) {
+        this.id = id;
+        this.email = email;
+        this.money = money;
         this.password = password;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getId() {
+        return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getRole() {
-        return role;
+    public float getMoney() {
+        return money;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
+                "id=" + id +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
+                ", role='" + money + '\'' +
                 '}';
     }
 }

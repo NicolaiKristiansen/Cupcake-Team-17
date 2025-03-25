@@ -11,24 +11,24 @@ import java.sql.SQLException;
 public class UserMapper
 {
 
-    public static User login(String userName, String password, ConnectionPool connectionPool) throws DatabaseException
+    public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "select * from users where username=? and password=?";
+        String sql = "select * from public.user where email=? and password=?";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         )
         {
-            ps.setString(1, userName);
+            ps.setString(1, email);
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next())
             {
-                int id = rs.getInt("user_id");
-                String role = rs.getString("role");
-                return new User(id, userName, password, role);
+                int id = rs.getInt("id");
+                float money = rs.getFloat("money");
+                return new User(id, email, password, money);
             } else
             {
                 throw new DatabaseException("Fejl i login. Prøv igen");
@@ -40,16 +40,16 @@ public class UserMapper
         }
     }
 
-    public static void createuser(String userName, String password, ConnectionPool connectionPool) throws DatabaseException
+    public static void createuser(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "insert into users (username, password) values (?,?)";
+        String sql = "insert into public.user (email, password) values (?,?)";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         )
         {
-            ps.setString(1, userName);
+            ps.setString(1, email);
             ps.setString(2, password);
 
             int rowsAffected = ps.executeUpdate();
@@ -63,7 +63,7 @@ public class UserMapper
             String msg = "Der er sket en fejl. Prøv igen";
             if (e.getMessage().startsWith("ERROR: duplicate key value "))
             {
-                msg = "Brugernavnet findes allerede. Vælg et andet";
+                msg = "Emailen er allerede registreret. Vælg et andet";
             }
             throw new DatabaseException(msg, e.getMessage());
         }
