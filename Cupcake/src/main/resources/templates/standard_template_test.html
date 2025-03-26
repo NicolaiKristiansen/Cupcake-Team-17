@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Standard Template Test</title>
+  <link href="../public/css/standard_template.css" th:href="@{/public/css/standard_template.css}" rel="stylesheet"/>
+</head>
+<body>
+<header>
+  <img th:src="@{/public/images/cupcakeimage.png}" src="../public/images/cupcakeimage.png" class="header-image"/>
+</header>
+
+<div class="container">
+  <div class="top-bar">
+    <button class="left-button">Gemte ordrer</button>
+    <div class="right">
+      <p>email-652@cphbusiness.dk</p>
+      <button class="basket-button">
+        <img th:src="@{/public/images/basket_red_dot.png}"
+             src="../public/images/basket_red_dot.png"
+             class="basket-icon" />
+      </button>
+    </div>
+  </div>
+
+  <div class="main-content">
+
+    <div>
+      <h1>Velkommen ombord</h1>
+      <h2>Øens bedste cupcakes. vælg og bestil her:</h2>
+  <div>
+      <select>
+        <option>Vælg bund</option>
+
+
+      </select>
+
+      <select>
+        <option>Vælg topping</option>
+      </select>
+
+      <select>
+        <option>Vælg antal</option>
+      </select>
+  </div>
+      <button>Læg i kurv</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

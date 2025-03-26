@@ -1,0 +1,121 @@
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+
+.header-image {
+    display: block;
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+    margin: 20px auto 0;
+    border-radius: 10px;
+}
+
+
+.top-bar {
+    background-color: #CAC9C9FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif; /* Brug gerne denne tekst font til alt tekst i programmet */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.top-bar button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+
+.left-button {
+    color: #877a78;
+    font-size: 1rem;
+    transition: color 0.3s ease; / Transition til en mørjere farve når man holder musen over den /
+}
+
+.left-button:hover {
+    color: #302e2e;
+}
+
+
+.top-bar .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+
+
+.basket-icon {
+    width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+}
+
+
+.main-content { /* Dette er den store boks hvor der skal være noget i */
+    background-color: #EAEAEAFF;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    min-height: 400px;
+    gap: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+}
+
+.main-content div {
+    border: 2px solid green;
+
+}
+
+.main-content div div{
+    border: 2px solid green;
+    display: flex;
+    min-width: 100%;
+    justify-content: space-between;
+}
+
+.main-content div div select {
+    border-radius: 5px;
+}
+
+.main-content div button {
+    display: flex;
+    margin-left: 270px;
+    margin-top: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 0px;
+    background: dodgerblue;
+    color: white;
+}
+/*
+.thank-you-message{
+    font-size: 2rem;
+} */
