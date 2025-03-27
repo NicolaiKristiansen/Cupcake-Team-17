@@ -2,6 +2,7 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.controllers.RouteController;
 import app.controllers.UserController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
@@ -34,6 +35,8 @@ public class Main {
         // Routing
 
         app.get("/", ctx ->  ctx.render("index.html"));
+
+        RouteController.routes(app, connectionPool);
 
         UserController.addRoutes(app, connectionPool);
     }
