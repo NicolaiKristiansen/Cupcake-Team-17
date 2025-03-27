@@ -114,6 +114,22 @@ select {
     background-color: #EAEAEAFF;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    min-height: 400px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+}
+
+.main-login-create-content {
+    background-color: #EAEAEAFF;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
