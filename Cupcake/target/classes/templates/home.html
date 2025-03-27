@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
+    <title>Forside</title>
     <link href="../public/css/standard_template.css" th:href="@{/public/css/standard_template.css}" rel="stylesheet"/>
 </head>
 <body>
 <header>
-    <img th:src="@{/public/images/cupcakeimage.png}" src="../public/images/cupcakeimage.png" class="header-image"/>
+    <img th:src="@{/public/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
 </header>
 
 <div class="container">
@@ -27,32 +27,33 @@
     <div class="main-content">
 
         <div>
-            <h1>Velkommen ombord</h1>
-            <h2>Øens bedste cupcakes. vælg og bestil her:</h2>
+            <div class="top-text">
+                <div class="title">Velkommen ombord</div>
+                <div class="rubric">Øens bedste cupcakes. vælg og bestil her:</div>
+            </div>
+
+
             <div>
-                <select id="cupcakes" name="cupcakes">
-                    <option>- Vælg bund -</option>
+                <select>
+                    <option>Vælg bund</option>
                     <option
                             th:each="cupcake : ${cupcakes}" th:value="${cupcake.name}"
                             th:text="${cupcake.name +  ':'  + cupcake.price + 'kr'}">
-
                     </option>
-
-
                 </select>
 
                 <select>
-                    <option>- Vælg topping -</option>
+                    <option>Vælg topping</option>
                     <option
                             th:each="cupcake : ${cupcakes}" th:value="${cupcake.name}"
                             th:text="${cupcake.name +  ':'  + cupcake.price + 'kr'}">
 
                     </option>
                 </select>
+                <p>Vælg antal</p>
                 <input type="number" name="quantity" min="1" placeholder="Please enter a number">
-
             </div>
-            <button>Læg i kurv</button>
+            <button class="add-to-basket">Læg i kurv</button>
         </div>
     </div>
 </div>

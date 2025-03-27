@@ -31,14 +31,15 @@ header a {
 
 header a img {
     width: 70%;
+    background: purple;
 }
-
 
 h1 {
     color: #369;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3rem;
 }
+
 
 /* General form styles */
 
@@ -65,6 +66,8 @@ h1 {
     padding: 10px;
     font-size: 1.2rem;
 }
+
+
 
 
 .input-large{

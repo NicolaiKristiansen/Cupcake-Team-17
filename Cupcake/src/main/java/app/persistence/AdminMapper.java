@@ -14,7 +14,7 @@ public class AdminMapper {
         //Function made by Nicolai
         //In the html we need to make it so when you select an order and press delete it calls this with the order as the parameter
 
-        String sql = "DELETE FROM order WHERE id = ?";
+        String sql = "DELETE FROM \"public\".\"order\" WHERE id = ?";
 
         try(
                 Connection connection = connectionPool.getConnection();
@@ -35,7 +35,7 @@ public class AdminMapper {
     public void updateUsersAllowance(User user, float amount, ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
         //The parameters are the user we select and the amount we want to insert into the user
-        String sql = "UPDATE user SET allowance = ? WHERE id = ?";
+        String sql = "UPDATE \"user\" SET allowance = ? WHERE id = ?";
 
         try (Connection connection = connectionPool.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);){
@@ -55,7 +55,7 @@ public class AdminMapper {
     public List<User> getAllUsers(ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM user";
+        String sql = "SELECT * FROM \"user\"";
 
         try(
                 Connection connection = connectionPool.getConnection();
@@ -80,7 +80,7 @@ public class AdminMapper {
     public List<Order> getOrders(ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
         ArrayList<Order> orders = new ArrayList<Order>();
-        String sql = "SELECT * FROM order";
+        String sql = "SELECT * FROM \"order\"";
 
         try (
                 Connection connection = connectionPool.getConnection();

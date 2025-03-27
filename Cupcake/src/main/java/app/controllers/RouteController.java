@@ -12,7 +12,8 @@ public class RouteController {
     public static void routes(Javalin app, ConnectionPool connectionPool) {
         //Function by Nicolai
         //When we go to a new path it goes through here
-        app.get("/Homepage", ctx -> homePage(ctx, connectionPool));
+        app.get("/home", ctx -> homePage(ctx, connectionPool));
+        app.get("/admin_index", ctx -> admin_index(ctx, connectionPool) );
 
     }
 
@@ -20,6 +21,10 @@ public class RouteController {
         //Function made by Nicolai
         //Renders the html Homepage.html and uses the giveCupcakeOptionsToHTML function to give the dropdown bars options
         cupcakeController.giveCupcakeOptionsToHTML(connectionPool, ctx);
-        ctx.render("Homepage.html");
+        ctx.render("home.html");
+    }
+
+    public static void admin_index(Context ctx, ConnectionPool connectionPool) {
+        ctx.render("admin_index.html");
     }
 }

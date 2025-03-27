@@ -44,7 +44,7 @@ public class CupcakeMapper {
 
     public void insertCupcake(Cupcake cupcake, ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
-        String sql = "INSERT INTO cupcak (name, price) VALUES (?,?)";
+        String sql = "INSERT INTO cupcake (name, price) VALUES (?,?)";
 
         try(
                 Connection connection = connectionPool.getConnection();
