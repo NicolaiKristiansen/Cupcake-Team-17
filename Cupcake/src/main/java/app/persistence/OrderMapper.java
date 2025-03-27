@@ -17,17 +17,17 @@ public class OrderMapper {
     public void insertOrder(Order order, ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
         //This function will be used to send an order and then insert it into our database
-        String sql = "INSERT INTO order VALUES (?,?,?,?)";
+        String sql = "INSERT INTO order VALUES (?,?,?)";
 
         try(
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
                 ){
 
-                ps.setInt(1, order.getId());
-                ps.setDate(2, order.getDate());
-                ps.setFloat(3, order.getTotal_price());
-                ps.setInt(4, order.getUser_id());
+                //Since id gets generated automatically we don't need to add them
+                ps.setDate(1, order.getDate());
+                ps.setFloat(2, order.getTotal_price());
+                ps.setInt(3, order.getUser_id());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {

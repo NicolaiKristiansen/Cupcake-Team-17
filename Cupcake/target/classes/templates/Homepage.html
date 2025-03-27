@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="da">
-<!--HTML file made by Sofus-->
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,8 +32,6 @@
             <div>
                 <select id="cupcakes" name="cupcakes">
                     <option>- Vælg bund -</option>
-
-                    <!-- Option altered by Nicolai to use the options in our database-->
                     <option
                             th:each="cupcake : ${cupcakes}" th:value="${cupcake.name}"
                             th:text="${cupcake.name +  ':'  + cupcake.price + 'kr'}">
@@ -46,18 +43,16 @@
 
                 <select>
                     <option>- Vælg topping -</option>
-                    <!-- Option altered by Nicolai to use the options in our database-->
                     <option
                             th:each="cupcake : ${cupcakes}" th:value="${cupcake.name}"
                             th:text="${cupcake.name +  ':'  + cupcake.price + 'kr'}">
 
                     </option>
                 </select>
-                <!-- Input field altered by Nicolai to now be a number selecter-->
                 <input type="number" name="quantity" min="1" placeholder="Please enter a number">
 
             </div>
-            <button type="submit">Læg i kurv</button>
+            <button>Læg i kurv</button>
         </div>
     </div>
 </div>
