@@ -1,4 +1,4 @@
-* {
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -61,7 +61,45 @@
     gap: 10px;
 }
 
+.top-bar .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
+.top-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.top-text .title {
+    font-family: Arial, sans-serif;
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+}
+.top-text .rubric {
+    font-family: Arial, sans-serif;
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+select {
+    padding: 5px;
+    min-width: 130px;
+}
+.add-to-basket{
+    margin-top: 30px;
+    font-size: 20px;
+    padding: 7px;
+    border-radius: 5px;
+    border: 0px;
+    background: dodgerblue;
+    color: white;
+}
 
 
 
@@ -75,19 +113,92 @@
 .main-content { /* Dette er den store boks hvor der skal være noget i */
     background-color: #EAEAEAFF;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     margin-top: 10px;
     border-radius: 10px;
     min-height: 400px;
-    gap: 20px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 25px;
 }
+
+.main-content .add-to-basket {
+    display: flex;
+    justify-content: center;
+}
+
+.login-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+
+.submit-button {
+    padding: 8px;
+    font-size: 0.8rem;
+    width: 25%;
+    background: green;
+    color: white;
+    border-radius: 8px;
+}
+.submit-button-create {
+    padding: 8px;
+    font-size: 0.8rem;
+    width: 40%;
+    background: green;
+    color: white;
+    border-radius: 8px;
+}
+
+
+.login-content .logout-create {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.main-content div div{
+    display: flex;
+    min-width: 100%;
+    justify-content: space-between;
+}
+
+.main-content div div select {
+    border-radius: 5px;
+}
+
+/* ****** Telefon ***** */
+@media (max-width: 500px){
+    .top-text .title {
+        font-family: Arial, sans-serif;
+        font-size: 2rem;
+        margin: 0;
+        padding: 0;
+    }
+    .top-text .rubric {
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+        margin: 0;
+        padding: 0;
+    }
+    .main-content div div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}
+
 /*
 .thank-you-message{
     font-size: 2rem;

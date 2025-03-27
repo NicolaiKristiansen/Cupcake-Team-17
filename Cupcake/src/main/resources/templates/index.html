@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<title>Fourthingsplus</title>
+<title>Log På</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+<link href="../public/css/standard_template.css" th:href="@{/public/css/standard_template.css}" rel="stylesheet"/>
 </head>
 
 <body>
 
 <div class="page">
-<header>
-<a href="index.html" th:href="@{/}">
-    <img src="../public/images/fourthingsplus.png" th:src="@{/images/fourthingsplus.png}"/>
-</a>
-</header>
-<form class="generic-form" method="post">
+    <header>
+        <img th:src="@{/public/images/cupcakeimage.png}" src="../public/images/cupcakeimage.png" class="header-image"/>
+    </header>
+    <div class="container">
 
-    <input type="text" name="email" placeholder="Enter your email"/>
-    <input type="password" name="password" placeholder="Enter your password"/>
+<form class="main-content" method="post">
 
-
-    <button type="submit" formaction="/login">Get access to my mind</button>
+    <div class="login-content">
+        <input type="text" name="email" placeholder="Indtast email"/>
+        <input type="password" name="password" placeholder="Indtast adgangskode"/>
+        <button class="submit-button" type="submit" formaction="/login">Log på</button>
+        <div class="logout-create">
+            <a href="createuser.html" th:href="@{/createuser}">Opret konto</a>
+            <a th:if="${session.currentUser != null}" href="index.html" th:href="@{/logout}">Log ud</a>
+        </div>
+    </div>
 
     <div><p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p></div>
+
 </form>
 
-<div >
 
-    <a th:if="${session.currentUser != null}" href="index.html" th:href="@{/logout}">Logout</a>
-    <span th:if="${session.currentUser != null}"> | </span>
-    <a href="createuser.html" th:href="@{/createuser}">Create user</a>
-</div>
 
 <p></p>
+</div>
 </div>
 </body>
 </html>
