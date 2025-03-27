@@ -8,11 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserMapper
-{
+public class UserMapper {
+    //Class made by Sofus
 
-    public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
-    {
+    public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
+        //Function made by Sofus
+        //Altered by Nicolai to be used with new database table
         String sql = "select * from public.user where email=? and password=?";
 
         try (
@@ -27,8 +28,11 @@ public class UserMapper
             if (rs.next())
             {
                 int id = rs.getInt("id");
+                String userEmail = rs.getString("email");
+                String userPassword = rs.getString("password");
                 float money = rs.getFloat("money");
-                return new User(id, email, password, money);
+                String role = rs.getString("role");
+                return new User(id, userEmail, userPassword, money, role);
             } else
             {
                 throw new DatabaseException("Fejl i login. Prøv igen");
@@ -40,8 +44,8 @@ public class UserMapper
         }
     }
 
-    public static void createuser(String email, String password, ConnectionPool connectionPool) throws DatabaseException
-    {
+    public static void createuser(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
+        //Function made by Sofus
         String sql = "insert into public.user (email, password) values (?,?)";
 
         try (
