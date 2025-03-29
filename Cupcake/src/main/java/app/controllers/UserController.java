@@ -61,7 +61,7 @@ public class UserController {
             ctx.sessionAttribute("currentUser", user);
             // Hvis ja, send videre til task side
             //ctx.attribute("taskList",  taskList);
-            ctx.render("task.html");
+            ctx.render("home.html");
         }catch (DatabaseException e) {
             // Hvis nej, send tilbage til login side med fejl
             ctx.attribute("message", e.getMessage());
