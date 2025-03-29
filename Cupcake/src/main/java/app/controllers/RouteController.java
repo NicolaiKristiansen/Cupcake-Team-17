@@ -13,6 +13,7 @@ public class RouteController {
         //Function by Nicolai
         //When we go to a new path it goes through here
         app.get("/Homepage", ctx -> homePage(ctx, connectionPool));
+        //app.post("/")
 
     }
 
