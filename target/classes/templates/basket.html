@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Din kurv</title>
+    <link href="../public/css/standard_template.css" th:href="@{/css/standard_template.css}" rel="stylesheet"/>
+    <link href="../public/css/basket.css" th:href="@{/css/basket.css}" rel="stylesheet"/>
+
+</head>
+<body>
+<header>
+    <img th:src="@{/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
+</header>
+
+<div class="container">
+    <div class="top-bar">
+        <button class="left-button">Gemte ordrer</button>
+        <div class="right">
+            <p>email-652@cphbusiness.dk</p>
+            <button class="basket-button">
+                <img th:src="@{/images/basket_red_dot.png}" src="../public/images/basket_red_dot.png" class="basket-icon" />
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="table-container">
+            <h2>Din kurv:</h2>
+            <table class="table-layout">
+                <thead>
+                <tr>
+                    <th>Top</th>
+                    <th>Bund</th>
+                    <th>Antal</th>
+                    <th>Pris</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                <tr>
+                    <td>Chokolade</td>
+                    <td>Solbær</td>
+                    <td>3</td>
+                    <td>50.95 kr.</td>
+                </tr>
+                <tr>
+                    <td>Vanilje</td>
+                    <td>Chokolade</td>
+                    <td>1</td>
+                    <td>25.00 kr.</td>
+
+
+                </tr>
+                </tbody>
+            </table>
+            <div class="total-pris">Total pris: 75.95 kr.</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
