@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gemte ordrer</title>
-  <link href="../public/css/standard_template.css" th:href="@{/public/css/standard_template.css}" rel="stylesheet"/>
-  <link href="../public/css/table.css" th:href="@{/css/table.css}" rel="stylesheet"/>
-
+  <title>Gemte Ordrer</title>
+  <link href="../public/css/standard_template.css" rel="stylesheet" />
+  <link href="../public/css/table.css" rel="stylesheet" />
 </head>
 <body>
 <header>
-  <img th:src="@{/public/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
+  <img src="../public/images/cupcakeheader.png" class="header-image" alt="Cupcake Header" />
 </header>
 
 <div class="container">
@@ -19,56 +18,82 @@
     <div class="right">
       <p>email-652@cphbusiness.dk</p>
       <button class="basket-button">
-        <img th:src="@{/public/images/basket_red_dot.png}" src="../public/images/basket_red_dot.png" class="basket-icon" />
+        <img src="../public/images/basket_red_dot.png" class="basket-icon" alt="Kurv ikon" />
       </button>
     </div>
   </div>
 
   <div class="main-content">
-    <div class="table-container">
-      <h2>Din kurv:</h2>
+    <div class="order-container">
+
+      <h2>Ordre 1</h2>
       <table class="table-layout">
         <thead>
         <tr>
-
           <th>Top</th>
           <th>Bund</th>
           <th>Antal</th>
           <th>Pris</th>
-          <th style="width: 30px;"></th>
-          <th style="width: 30px;"></th>
-
         </tr>
         </thead>
         <tbody>
+
         <tr>
           <td>Chokolade</td>
           <td>Solbær</td>
           <td>3</td>
           <td>50.95 kr.</td>
-          <td>
-            <button class="trashcan-button" type="button">
-              <img th:src="@{/public/images/trashcan_icon.png}" src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ikon" />
-            </button>
-          </td>
         </tr>
+
         <tr>
           <td>Vanilje</td>
           <td>Chokolade</td>
           <td>1</td>
           <td>25.00 kr.</td>
-          <td>
-            <button class="trashcan-button" type="button">
-              <img th:src="@{/public/images/trashcan_icon.png}" src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ikon" />
-            </button>
-          </td>
+        </tr>
+
+        </tbody>
+      </table>
+      <div class="total-pris">Total pris: 75.95 kr.</div>
+      <div class="order-actions">
+        <button class="trashcan-button" type="button">
+          <img src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ordre" />
+          Slet ordre
+        </button>
+      </div>
+    </div>
+
+
+    <div class="order-container">
+      <h2>Ordre 2</h2>
+      <table class="table-layout">
+        <thead>
+        <tr>
+          <th>Top</th>
+          <th>Bund</th>
+          <th>Antal</th>
+          <th>Pris</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Vanilje</td>
+          <td>Solbær</td>
+          <td>2</td>
+          <td>40.00 kr.</td>
         </tr>
         </tbody>
       </table>
-
       <div class="total-pris">Total pris: 75.95 kr.</div>
-      <button class="checkout-button">Gå til kassen</button>
+      <div class="order-actions">
+        <button class="trashcan-button" type="button">
+          <img src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ordre" />
+          Slet ordre
+
+        </button>
+      </div>
     </div>
+
   </div>
 </div>
 </body>
