@@ -30,3 +30,19 @@
     text-align: left;
     margin-bottom: 10px;
 }
+
+.trashcan-icon {
+    width: 30px;
+    height: auto;
+}
+
+.trashcan-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
