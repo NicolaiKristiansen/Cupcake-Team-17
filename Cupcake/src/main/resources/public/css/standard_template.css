@@ -215,6 +215,22 @@ input {
 
 }
 
+.checkout-button {
+    background: #008000;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.checkout-button:hover {
+    background: #006100;
+}
+
+
 /*
 .thank-you-message{
     font-size: 2rem;
