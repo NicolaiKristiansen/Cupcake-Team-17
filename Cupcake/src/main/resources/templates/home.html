@@ -4,23 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forside</title>
-    <link href="../public/css/standard_template.css" th:href="@{/public/css/standard_template.css}" rel="stylesheet"/>
+    <link href="../public/css/standard_template.css" th:href="@{/css/standard_template.css}" rel="stylesheet"/>
 </head>
 <body>
 <header>
-    <img th:src="@{/public/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
+    <img th:src="@{/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
 </header>
 
 <div class="container">
     <div class="top-bar">
-        <button class="left-button">Gemte ordrer</button>
+        <a href="standard_template_test.html" th:href="@{/order}" class="left-button">Gemte ordrer</a>
         <div class="right">
-            <p> <span th:text="${session.currentUser.email}"></span></p>
-            <button class="basket-button">
-                <img th:src="@{/public/images/basket_red_dot.png}"
+            <p>email-652@cphbusiness.dk</p>
+            <a href="basket.html" th:href="@{/addtobasket}"  class="basket-button">
+                <img th:src="@{/images/basket_red_dot.png}"
                      src="../public/images/basket_red_dot.png"
                      class="basket-icon" />
-            </button>
+            </a>
         </div>
     </div>
 
@@ -29,31 +29,24 @@
         <div>
             <div class="top-text">
                 <div class="title">Velkommen ombord</div>
-                <div class="rubric">Øens bedste cupcakeTops. vælg og bestil her:</div>
+                <div class="rubric">Øens bedste cupcakes. vælg og bestil her:</div>
             </div>
 
 
             <div>
                 <select>
                     <option>Vælg bund</option>
-                    <option
-                            th:each="cupcakeBottom : ${cupcakeBottoms}" th:value="${cupcakeBottom.name}"
-                            th:text="${cupcakeBottom.name +  ':'  + cupcakeBottom.price + 'kr'}">
-                    </option>
                 </select>
 
                 <select>
                     <option>Vælg topping</option>
-                    <option
-                            th:each="cupcakeTop : ${cupcakeTops}" th:value="${cupcakeTop.name}"
-                            th:text="${cupcakeTop.name +  ':'  + cupcakeTop.price + 'kr'}">
-
-                    </option>
                 </select>
-                <p>Vælg antal</p>
-                <input type="number" name="quantity" min="1" placeholder="Please enter amount">
+
+                <select>
+                    <option>Vælg antal</option>
+                </select>
             </div>
-            <button class="add-to-basket">Læg i kurv</button>
+            <a class="add-to-basket" >Læg i kurv</a>
         </div>
     </div>
 </div>

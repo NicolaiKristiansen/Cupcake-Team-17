@@ -1,65 +1,66 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kvittering</title>
+    <title>Admin ordre</title>
     <link href="../public/css/standard_template.css" th:href="@{/css/standard_template.css}" rel="stylesheet"/>
     <link href="../public/css/basket.css" th:href="@{/css/basket.css}" rel="stylesheet"/>
 
+    <style>
+        .table-layout td:nth-child(n+3) {
+            background: transparent;
+            border: 0;
+        }
+    </style>
 </head>
 <body>
+
 <header>
     <img th:src="@{/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
 </header>
 
 <div class="container">
     <div class="top-bar">
-        <button class="left-button">Gemte ordrer</button>
+        <div class left>
+            <button class="left-button">Ordrer</button>
+            <button class="left-button">Kunder</button>
+        </div>
         <div class="right">
             <p>email-652@cphbusiness.dk</p>
-            <button class="basket-button">
-                <img th:src="@{/images/basket_red_dot.png}" src="../public/images/basket_red_dot.png" class="basket-icon" />
-            </button>
         </div>
     </div>
 
+
     <div class="main-content">
         <div class="table-container">
-            <h2>Tak for din bestilling!</h2>
-            <h2>Kvittering:</h2>
+            <h2>Her kan du slette ordre!</h2>
             <table class="table-layout">
                 <thead>
                 <tr>
-                    <th>Top</th>
-                    <th>Bund</th>
-                    <th>Antal</th>
-                    <th>Pris</th>
+                    <th>Ordre ID</th>
+                    <th>Kunde Navn</th>
                 </tr>
                 </thead>
                 <tbody>
 
 
                 <tr>
-                    <td>Chokolade</td>
-                    <td>Solbær</td>
-                    <td>3</td>
-                    <td>50.95 kr.</td>
+                    <td>1</td>
+                    <td>email-652@cphbusiness.dk</td>
+                    <td>edit logo</td>
+                    <td>trash logo</td>
                 </tr>
                 <tr>
-                    <td>Vanilje</td>
-                    <td>Chokolade</td>
-                    <td>1</td>
-                    <td>25.00 kr.</td>
+                    <td>2</td>
+                    <td>email-653@cphbusiness.dk</td>
+                    <td class="cell-transparent">edit logo</td>
+                    <td class="cell-transparent">trash logo</td>
 
 
                 </tr>
                 </tbody>
             </table>
-            <div class="total-price">Total pris: 75.95 kr.</div>
-            <div class="total-price">Købsdato: 26-03-2025</div>
-            <div class="total-price">Ordre-ID: 12</div>
-
         </div>
     </div>
 </div>
