@@ -7,7 +7,7 @@ import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
-import java.util.List;
+
 
 public class UserController {
     //Class made by Sofus
@@ -18,6 +18,19 @@ public class UserController {
         app.get("logout", ctx -> logout(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
+
+        app.get("addtobasket", ctx -> ctx.render("basket.html"));
+        //app.post("addtobasket", ctx -> basket(ctx, connectionPool));
+
+        app.get("order", ctx -> ctx.render("admin_order.html"));
+    }
+
+    public static void basket(Context ctx, ConnectionPool connectionPool){
+        ctx.render("basket.html");
+    }
+
+    public static void savedOrder(Context ctx, ConnectionPool connectionPool){
+        ctx.render("admin_order.html");
     }
 
     private static void createUser(Context ctx, ConnectionPool connectionPool) {
@@ -68,6 +81,4 @@ public class UserController {
             ctx.render("index.html");
         }
     }
-
-
 }

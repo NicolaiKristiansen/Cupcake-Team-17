@@ -13,14 +13,14 @@
 
 <div class="container">
     <div class="top-bar">
-        <button class="left-button">Gemte ordrer</button>
+        <a href="standard_template_test.html" th:href="@{/order}" class="left-button">Gemte ordrer</a>
         <div class="right">
             <p>email-652@cphbusiness.dk</p>
-            <button class="basket-button">
+            <a href="basket.html" th:href="@{/addtobasket}"  class="basket-button">
                 <img th:src="@{/images/basket_red_dot.png}"
                      src="../public/images/basket_red_dot.png"
                      class="basket-icon" />
-            </button>
+            </a>
         </div>
     </div>
 
@@ -46,7 +46,7 @@
                     <option>Vælg antal</option>
                 </select>
             </div>
-            <button class="add-to-basket">Læg i kurv</button>
+            <a class="add-to-basket" >Læg i kurv</a>
         </div>
     </div>
 </div>
