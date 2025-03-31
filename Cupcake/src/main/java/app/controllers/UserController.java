@@ -10,10 +10,13 @@ import io.javalin.http.Context;
 
 
 public class UserController {
-    //Class made by Sofus
+
+    private static CupcakeController cupcakeController = new CupcakeController();
+
+
+
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
-        //Function made by Sofus
         app.post("login",ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
@@ -34,7 +37,6 @@ public class UserController {
     }
 
     private static void createUser(Context ctx, ConnectionPool connectionPool) {
-        //Function made by Sofus
         //Hent form parametre
         String email = ctx.formParam("email");
         String password1 = ctx.formParam("password1");
@@ -57,13 +59,11 @@ public class UserController {
         }
     }
     public static void logout(Context ctx) {
-        //Function made by Sofus
         ctx.req().getSession().invalidate();
         ctx.redirect("/");
     }
 
     public static void login(Context ctx, ConnectionPool connectionPool) {
-        //Function made by Sofus
         // Hent form parametre
         String email = ctx.formParam("email");
         String password = ctx.formParam("password");
@@ -74,6 +74,8 @@ public class UserController {
             ctx.sessionAttribute("currentUser", user);
             // Hvis ja, send videre til task side
             //ctx.attribute("taskList",  taskList);
+            cupcakeController.giveCupcakeTopOptionsToHTML(connectionPool, ctx);
+            cupcakeController.giveCupcakeBottomOptionsToHTML(connectionPool, ctx);
             ctx.render("home.html");
         }catch (DatabaseException e) {
             // Hvis nej, send tilbage til login side med fejl
