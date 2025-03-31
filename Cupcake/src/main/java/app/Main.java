@@ -2,7 +2,6 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
-import app.controllers.RouteController;
 import app.controllers.UserController;
 import app.entities.Order;
 import app.entities.Orderline;
@@ -53,7 +52,6 @@ public class Main {
 
 
 
-        RouteController.routes(app, connectionPool);
         UserController.addRoutes(app, connectionPool);
     }
 
