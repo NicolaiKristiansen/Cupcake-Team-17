@@ -36,16 +36,22 @@
             <div>
                 <select>
                     <option>Vælg bund</option>
-                    <option th
+                    <option
+                            th:each="cupcakeBottom : ${cupcakeBottoms}" th:value="${cupcakeBottom.name}"
+                            th:text="${cupcakeBottom.name +  ':'  + cupcakeBottom.price + 'kr'}">
+                    </option>
                 </select>
 
                 <select>
                     <option>Vælg topping</option>
-                </select>
+                    <option
+                            th:each="cupcakeTop : ${cupcakeTops}" th:value="${cupcakeTop.name}"
+                            th:text="${cupcakeTop.name +  ':'  + cupcakeTop.price + 'kr'}">
 
-                <select>
-                    <option>Vælg antal</option>
+                    </option>
                 </select>
+                <p>Vælg antal</p>
+                <input type="number" name="quantity" min="1" placeholder="Please enter amount">
             </div>
             <a class="add-to-basket" >Læg i kurv</a>
         </div>
