@@ -15,7 +15,7 @@
     <div class="top-bar">
         <button class="left-button">Gemte ordrer</button>
         <div class="right">
-            <p>email-652@cphbusiness.dk</p>
+            <p> <span th:text="${session.currentUser.email}"></span></p>
             <button class="basket-button">
                 <img th:src="@{/public/images/basket_red_dot.png}"
                      src="../public/images/basket_red_dot.png"
@@ -29,7 +29,7 @@
         <div>
             <div class="top-text">
                 <div class="title">Velkommen ombord</div>
-                <div class="rubric">Øens bedste cupcakes. vælg og bestil her:</div>
+                <div class="rubric">Øens bedste cupcakeTops. vælg og bestil her:</div>
             </div>
 
 
@@ -37,21 +37,21 @@
                 <select>
                     <option>Vælg bund</option>
                     <option
-                            th:each="cupcake : ${cupcakes}" th:value="${cupcake.name}"
-                            th:text="${cupcake.name +  ':'  + cupcake.price + 'kr'}">
+                            th:each="cupcakeBottom : ${cupcakeBottoms}" th:value="${cupcakeBottom.name}"
+                            th:text="${cupcakeBottom.name +  ':'  + cupcakeBottom.price + 'kr'}">
                     </option>
                 </select>
 
                 <select>
                     <option>Vælg topping</option>
                     <option
-                            th:each="cupcake : ${cupcakes}" th:value="${cupcake.name}"
-                            th:text="${cupcake.name +  ':'  + cupcake.price + 'kr'}">
+                            th:each="cupcakeTop : ${cupcakeTops}" th:value="${cupcakeTop.name}"
+                            th:text="${cupcakeTop.name +  ':'  + cupcakeTop.price + 'kr'}">
 
                     </option>
                 </select>
                 <p>Vælg antal</p>
-                <input type="number" name="quantity" min="1" placeholder="Please enter a number">
+                <input type="number" name="quantity" min="1" placeholder="Please enter amount">
             </div>
             <button class="add-to-basket">Læg i kurv</button>
         </div>

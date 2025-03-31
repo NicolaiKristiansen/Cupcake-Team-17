@@ -1,19 +1,19 @@
 package app.entities;
 
-public class Cupcake {
+public class CupcakeTop {
     //Class made by Nicolai
 
     private int id;
     private String name;
     private float price;
 
-    public Cupcake(int id, String name, float price) {
+    public CupcakeTop(int id, String name, float price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
 
-    public Cupcake(String name, float price) {
+    public CupcakeTop(String name, float price) {
         this.name = name;
         this.price = price;
     }
@@ -44,7 +44,7 @@ public class Cupcake {
 
     @Override
     public String toString() {
-        return "Cupcake{" +
+        return "CupcakeTop{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +

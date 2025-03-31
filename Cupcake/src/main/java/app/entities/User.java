@@ -1,5 +1,7 @@
 package app.entities;
 
+import java.util.ArrayList;
+
 public class User {
     //Class made by Sofus
     //Altered by Nicolai to work with new database table
@@ -9,6 +11,7 @@ public class User {
     private String password;
     private float money;
     private String role;
+    private ArrayList<Order> orders;
 
     public User(int id, String email, String password, float money, String role) {
         this.id = id;
@@ -63,6 +66,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

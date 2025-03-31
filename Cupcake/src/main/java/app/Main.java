@@ -4,17 +4,19 @@ import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
 import app.controllers.RouteController;
 import app.controllers.UserController;
-import app.entities.Cupcake;
 import app.entities.Order;
-import app.persistence.AdminMapper;
+import app.entities.Orderline;
+import app.entities.User;
+import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.CupcakeMapper;
 import app.persistence.OrderMapper;
+import app.persistence.OrderlineMapper;
+import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
-import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Date;
 import java.util.logging.Logger;
 
 
@@ -29,7 +31,7 @@ public class Main {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance(USER, PASSWORD, URL, DB);
 
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, DatabaseException {
         // Initializing Javalin and Jetty webserver
 
         Javalin app = Javalin.create(config -> {
@@ -42,7 +44,12 @@ public class Main {
 
         app.get("/", ctx ->  ctx.render("index.html"));
 
-        //TODO: Add a sql statement for users to delete saved orders
+
+
+
+        
+
+
 
 
 

@@ -9,15 +9,16 @@ public class Order {
     private Date date;
     private float total_price;
     private int user_id;
+    private boolean saved_order;
 
-    public Order(int id, Date date, float total_price, int user_id) {
+    public Order(int id, Date date, float total_price, int user_id, boolean saved_order) {
         this.id = id;
         this.date = date;
         this.total_price = total_price;
         this.user_id = user_id;
     }
 
-    public Order(Date date, float total_price, int user_id) {
+    public Order(Date date, float total_price, int user_id, boolean saved_order) {
         this.date = date;
         this.total_price = total_price;
         this.user_id = user_id;
@@ -55,6 +56,14 @@ public class Order {
         this.user_id = user_id;
     }
 
+    public boolean isSaved_order() {
+        return saved_order;
+    }
+
+    public void setSaved_order(boolean saved_order) {
+        this.saved_order = saved_order;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -62,6 +71,7 @@ public class Order {
                 ", date=" + date +
                 ", total_price=" + total_price +
                 ", user_id=" + user_id +
+                ", saved_order=" + saved_order +
                 '}';
     }
 }

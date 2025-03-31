@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AdminController {
-    //Class created by Nicolai
 
     public void giveOrdersToHTML(ConnectionPool connectionPool, Context ctx) throws SQLException {
         //We take our orders from the database and make them usable on html that use the key orders. This ${orders}

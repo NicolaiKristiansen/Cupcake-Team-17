@@ -94,8 +94,9 @@ public class AdminMapper {
                 Date date = rs.getDate("date");
                 float total_price = rs.getFloat("total_price");
                 int user_id = rs.getInt("user_id");
+                boolean saved_order = rs.getBoolean("saved_order");
 
-                Order order = new Order(id, date, total_price, user_id);
+                Order order = new Order(id, date, total_price, user_id, saved_order);
                 orders.add(order);
             }
         }

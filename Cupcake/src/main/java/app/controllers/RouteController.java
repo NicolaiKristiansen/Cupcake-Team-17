@@ -20,11 +20,13 @@ public class RouteController {
     public static void homePage(Context ctx, ConnectionPool connectionPool) {
         //Function made by Nicolai
         //Renders the html Homepage.html and uses the giveCupcakeOptionsToHTML function to give the dropdown bars options
-        cupcakeController.giveCupcakeOptionsToHTML(connectionPool, ctx);
+        cupcakeController.giveCupcakeTopOptionsToHTML(connectionPool, ctx);
+        cupcakeController.giveCupcakeBottomOptionsToHTML(connectionPool, ctx);
         ctx.render("home.html");
     }
 
     public static void admin_index(Context ctx, ConnectionPool connectionPool) {
+
         ctx.render("admin_index.html");
     }
 }
