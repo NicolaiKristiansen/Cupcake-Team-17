@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin kunde</title>
     <link href="../public/css/standard_template.css" th:href="@{/css/standard_template.css}" rel="stylesheet"/>
-    <link href="../public/css/basket.css" th:href="@{/css/basket.css}" rel="stylesheet"/>
+    <link href="../public/css/table.css" th:href="@{/css/table.css}" rel="stylesheet"/>
+
+    <style>
+        .table-layout td:nth-child(n+4) {
+            background: transparent;
+            border: 0;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -15,11 +22,11 @@
 <div class="container">
     <div class="top-bar">
         <div class left>
-            <button class="left-button">Ordrer</button>
-            <button class="left-button">Kunder</button>
+            <a href="admin_order.html" th:href="@{/order}" class="left-button">Ordrer</a>
+            <a href="admin_customer.html" th:href="@{/user}" class="left-button">Kunder</a>
         </div>
         <div class="right">
-            <p>email-652@cphbusiness.dk</p>
+            <p><span th:text="${session.currentUser.email}"></span></p>
         </div>
     </div>
 
@@ -32,25 +39,17 @@
                     <th>Kunde ID</th>
                     <th>Kunde email</th>
                     <th>Kunde penge</th>
+                    <th>Rediger</th>
+                    <th>Slet</th>
                 </tr>
                 </thead>
                 <tbody>
-
-                <tr>
-                    <td>1</td>
-                    <td>email-652@cphbusiness.dk</td>
-                    <td>100</td>
-                    <td>edit logo</td>
-                    <td>trash logo</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>email-653@cphbusiness.dk</td>
-                    <td>300</td>
-                    <td>edit logo</td>
-                    <td>trash logo</td>
-
-
+                <tr th:each="user : ${userList}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.money}"></td>
+                    <td>>Rediger</td>
+                    <td>>Slet</td>
                 </tr>
                 </tbody>
             </table>

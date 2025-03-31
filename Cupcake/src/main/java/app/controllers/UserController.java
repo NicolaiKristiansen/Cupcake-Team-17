@@ -7,6 +7,7 @@ import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.util.Objects;
 
 
 public class UserController {
@@ -23,9 +24,6 @@ public class UserController {
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
 
         app.get("addtobasket", ctx -> ctx.render("basket.html"));
-        //app.post("addtobasket", ctx -> basket(ctx, connectionPool));
-
-        app.get("order", ctx -> ctx.render("admin_order.html"));
     }
 
     public static void basket(Context ctx, ConnectionPool connectionPool){
@@ -33,7 +31,7 @@ public class UserController {
     }
 
     public static void savedOrder(Context ctx, ConnectionPool connectionPool){
-        ctx.render("admin_order.html");
+
     }
 
     private static void createUser(Context ctx, ConnectionPool connectionPool) {
@@ -69,18 +67,28 @@ public class UserController {
         String password = ctx.formParam("password");
 
         // Check om bruger findes i databasen med de angivende username + password
-        try {
-            User user = UserMapper.login(email, password, connectionPool);
-            ctx.sessionAttribute("currentUser", user);
-            // Hvis ja, send videre til task side
-            //ctx.attribute("taskList",  taskList);
-            cupcakeController.giveCupcakeTopOptionsToHTML(connectionPool, ctx);
-            cupcakeController.giveCupcakeBottomOptionsToHTML(connectionPool, ctx);
-            ctx.render("home.html");
-        }catch (DatabaseException e) {
-            // Hvis nej, send tilbage til login side med fejl
-            ctx.attribute("message", e.getMessage());
-            ctx.render("index.html");
+
+            try {
+                User user = UserMapper.login(email, password, connectionPool);
+                ctx.sessionAttribute("currentUser", user);
+                // Hvis ja, send videre til task side
+                //ctx.attribute("taskList",  taskList);
+
+                if(user.getRole().equals("user")) {
+                    cupcakeController.giveCupcakeTopOptionsToHTML(connectionPool, ctx);
+                    cupcakeController.giveCupcakeBottomOptionsToHTML(connectionPool, ctx);
+                    ctx.render("home.html");
+                } else if (user.getRole().equals("admin")) {
+                    ctx.render("admin_index.html");
+                } else {
+                    System.out.println("Doesn't have user role");
+                }
+
+
+            } catch (DatabaseException e) {
+                // Hvis nej, send tilbage til login side med fejl
+                ctx.attribute("message", e.getMessage());
+                ctx.render("index.html");
+            }
         }
-    }
 }
