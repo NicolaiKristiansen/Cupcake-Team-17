@@ -15,7 +15,7 @@
     <div class="top-bar">
         <a href="standard_template_test.html" th:href="@{/order}" class="left-button">Gemte ordrer</a>
         <div class="right">
-            <p>email-652@cphbusiness.dk</p>
+            <p><span th:text="${session.currentUser.email}"></span></p>
             <a href="basket.html" th:href="@{/addtobasket}"  class="basket-button">
                 <img th:src="@{/images/basket_red_dot.png}"
                      src="../public/images/basket_red_dot.png"
