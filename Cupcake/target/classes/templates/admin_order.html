@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin ordre</title>
+    <link href="../public/css/standard_template.css" th:href="@{/css/standard_template.css}" rel="stylesheet"/>
+    <link href="../public/css/table.css" th:href="@{/css/table.css}" rel="stylesheet"/>
+
+    <style>
+        .table-layout td:nth-child(n+3) {
+            background: transparent;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img th:src="@{/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
+</header>
+
+<div class="container">
+    <div class="top-bar">
+        <div class left>
+            <button class="left-button">Ordrer</button>
+            <button class="left-button">Kunder</button>
+        </div>
+        <div class="right">
+            <p>email-652@cphbusiness.dk</p>
+        </div>
+    </div>
+
+
+    <div class="main-content">
+        <div class="table-container">
+            <h2>Her kan du slette ordre!</h2>
+            <table class="table-layout">
+                <thead>
+                <tr>
+                    <th>Ordre ID</th>
+                    <th>Kunde Navn</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                <tr>
+                    <td>1</td>
+                    <td>email-652@cphbusiness.dk</td>
+                    <td>edit logo</td>
+                    <td>trash logo</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>email-653@cphbusiness.dk</td>
+                    <td class="cell-transparent">edit logo</td>
+                    <td class="cell-transparent">trash logo</td>
+
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

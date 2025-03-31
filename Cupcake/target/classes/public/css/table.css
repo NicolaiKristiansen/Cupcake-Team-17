@@ -1,0 +1,48 @@
+.table-container {
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+.table-container h2 {
+    margin-bottom: 10px;
+}
+.table-layout {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+.table-layout th {
+    border: 1px solid #cfcfcf;
+    padding: 8px;
+    text-align: left;
+}
+.table-layout td {
+    border: 1px solid #cfcfcf;
+    padding: 8px;
+    text-align: left;
+}
+.table-layout th {
+    background-color: #c3c2c2;
+}
+.table-layout td {
+    background-color: #f2f2f2;
+}
+.total-price {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.trashcan-icon {
+    width: 30px;
+    height: auto;
+}
+
+.trashcan-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
