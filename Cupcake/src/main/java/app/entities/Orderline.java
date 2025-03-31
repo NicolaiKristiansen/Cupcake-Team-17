@@ -8,20 +8,23 @@ public class Orderline {
     private int cupcake_bottom_id;
     private int order_id;
     private int amount;
+    private float price;
 
-    public Orderline(int id, int cupcake_top_id, int cupcake_bottom_id, int order_id, int amount) {
+    public Orderline(int id, int cupcake_top_id, int cupcake_bottom_id, int order_id, int amount, float price) {
         this.id = id;
         this.cupcake_top_id = cupcake_top_id;
         this.cupcake_bottom_id = cupcake_bottom_id;
         this.order_id = order_id;
         this.amount = amount;
+        this.price = price;
     }
 
-    public Orderline(int cupcake_top_id, int cupcake_bottom_id, int order_id, int amount) {
+    public Orderline(int cupcake_top_id, int cupcake_bottom_id, int order_id, int amount, float price) {
         this.cupcake_top_id = cupcake_top_id;
         this.cupcake_bottom_id = cupcake_bottom_id;
         this.order_id = order_id;
         this.amount = amount;
+        this.price = price;
     }
 
     public int getId() {
@@ -64,6 +67,14 @@ public class Orderline {
         this.amount = amount;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "Orderline{" +
@@ -72,6 +83,7 @@ public class Orderline {
                 ", cupcake_bottom_id=" + cupcake_bottom_id +
                 ", order_id=" + order_id +
                 ", amount=" + amount +
+                ", price=" + price +
                 '}';
     }
 }

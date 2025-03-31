@@ -25,4 +25,6 @@ public class AdminController {
         List<User> users = admin_Mapper.getAllUsers(connectionPool);
         ctx.attribute("users", users);
     }
+
+
 }

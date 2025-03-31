@@ -36,6 +36,9 @@
                 </thead>
                 <tbody>
 
+                <p th:each="user : ${users}"
+                   th:text="${user.email}"></p>
+
                 <tr>
                     <td>1</td>
                     <td>email-652@cphbusiness.dk</td>

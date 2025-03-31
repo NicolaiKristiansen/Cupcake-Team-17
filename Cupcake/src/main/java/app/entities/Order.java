@@ -1,6 +1,7 @@
 package app.entities;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Order {
     //Class made by Nicolai
@@ -10,6 +11,7 @@ public class Order {
     private float total_price;
     private int user_id;
     private boolean saved_order;
+    private List<Orderline> orderlines;
 
     public Order(int id, Date date, float total_price, int user_id, boolean saved_order) {
         this.id = id;
@@ -62,6 +64,14 @@ public class Order {
 
     public void setSaved_order(boolean saved_order) {
         this.saved_order = saved_order;
+    }
+
+    public List<Orderline> getOrderlines() {
+        return orderlines;
+    }
+
+    public void setOrderlines(List<Orderline> orderlines) {
+        this.orderlines = orderlines;
     }
 
     @Override

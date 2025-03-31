@@ -1,17 +1,26 @@
 package app.controllers;
 
+import app.entities.Order;
+import app.entities.Orderline;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.persistence.OrderMapper;
+import app.persistence.OrderlineMapper;
 import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class UserController {
 
+    static User user;
     private static CupcakeController cupcakeController = new CupcakeController();
+    private static OrderMapper orderMapper = new OrderMapper();
+    private static OrderlineMapper orderlineMapper = new OrderlineMapper();
 
 
 
@@ -26,6 +35,7 @@ public class UserController {
         //app.post("addtobasket", ctx -> basket(ctx, connectionPool));
 
         app.get("order", ctx -> ctx.render("admin_order.html"));
+        app.get("savedOrders", ctx -> savedOrdersPage(ctx, connectionPool));
     }
 
     public static void basket(Context ctx, ConnectionPool connectionPool){
@@ -70,7 +80,7 @@ public class UserController {
 
         // Check om bruger findes i databasen med de angivende username + password
         try {
-            User user = UserMapper.login(email, password, connectionPool);
+            user = UserMapper.login(email, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
             // Hvis ja, send videre til task side
             //ctx.attribute("taskList",  taskList);
@@ -83,4 +93,26 @@ public class UserController {
             ctx.render("index.html");
         }
     }
+
+    public static void savedOrdersPage(Context ctx, ConnectionPool connectionPool) throws SQLException {
+        // Retrieve all orders for the current user
+        orderMapper.setOrdersForUser(user, connectionPool);
+        List<Order> savedOrders = user.getOrders();
+
+        // Retrieve all orderlines for the orders
+        // Here we get orderlines for all orders at once based on user orders.
+        for (Order order : savedOrders) {
+            // We get orderlines for each order
+            List<Orderline> savedOrderlines = orderlineMapper.getOrderlineByOrderid(user, connectionPool);
+            order.setOrderlines(savedOrderlines);  // Assuming Order has a setOrderlines method
+        }
+
+        // Set the orders in the context for the Thymeleaf template to access
+        ctx.attribute("savedOrders", savedOrders);
+
+        // Render the saved orders page
+        ctx.render("saved_orders.html");
+    }
+
+
 }

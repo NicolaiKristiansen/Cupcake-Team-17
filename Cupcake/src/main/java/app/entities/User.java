@@ -13,6 +13,7 @@ public class User {
     private String role;
     private ArrayList<Order> orders;
 
+
     public User(int id, String email, String password, float money, String role) {
         this.id = id;
         this.email = email;

@@ -2,20 +2,19 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.controllers.AdminController;
 import app.controllers.UserController;
 import app.entities.Order;
 import app.entities.Orderline;
 import app.entities.User;
 import app.exceptions.DatabaseException;
-import app.persistence.ConnectionPool;
-import app.persistence.OrderMapper;
-import app.persistence.OrderlineMapper;
-import app.persistence.UserMapper;
+import app.persistence.*;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -46,7 +45,9 @@ public class Main {
 
 
 
-        
+
+
+
 
 
 
