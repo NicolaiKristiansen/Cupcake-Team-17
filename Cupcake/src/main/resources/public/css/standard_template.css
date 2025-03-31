@@ -1,16 +1,18 @@
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+body {
+    font-family: Arial, sans-serif;
+}
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 0;
 }
-
 
 .header-image {
     display: block;
@@ -21,7 +23,6 @@
     border-radius: 10px;
 }
 
-
 .top-bar {
     background-color: #CAC9C9FF;
     display: flex;
@@ -30,12 +31,11 @@
     padding: 10px 20px;
     margin-top: 10px;
     border-radius: 10px;
-    font-family: Arial, sans-serif; /* Brug gerne denne tekst font til alt tekst i programmet */
+    font-family: Arial, sans-serif;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
-
 
 .top-bar button {
     border: none;
@@ -43,17 +43,15 @@
     cursor: pointer;
 }
 
-
 .left-button {
     color: #877a78;
     font-size: 1rem;
-    transition: color 0.3s ease; /* Transition til en mørjere farve når man holder musen over den */
+    transition: color 0.3s ease;
 }
 
 .left-button:hover {
     color: #302e2e;
 }
-
 
 .top-bar .right {
     display: flex;
@@ -80,6 +78,7 @@
     margin: 0;
     padding: 0;
 }
+
 .top-text .rubric {
     font-family: Arial, sans-serif;
     font-size: 1.5rem;
@@ -91,17 +90,16 @@ select {
     padding: 5px;
     min-width: 130px;
 }
-.add-to-basket{
+
+.add-to-basket {
     margin-top: 30px;
     font-size: 20px;
     padding: 7px;
     border-radius: 5px;
-    border: 0px;
+    border: 0;
     background: dodgerblue;
     color: white;
 }
-
-
 
 .basket-icon {
     width: 50px;
@@ -109,8 +107,7 @@ select {
     object-fit: contain;
 }
 
-
-.main-content { /* Dette er den store boks hvor der skal være noget i */
+.main-content {
     background-color: #EAEAEAFF;
     display: flex;
     flex-direction: column;
@@ -163,10 +160,11 @@ input {
     padding: 8px;
     font-size: 0.8rem;
     width: 25%;
-    background: green;
-    color: white;
+    background: #008300;
+    color: #ffffff;
     border-radius: 8px;
 }
+
 .submit-button-create {
     padding: 8px;
     font-size: 0.8rem;
@@ -176,46 +174,103 @@ input {
     border-radius: 8px;
 }
 
-
 .login-content .logout-create {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.main-content div div{
+.button-container {
     display: flex;
-    min-width: 100%;
+    align-items: center;
     justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+    flex-wrap: wrap;
 }
 
-.main-content div div select {
+.save-order-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.save-order-checkbox {
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    border: 1px solid #cdcdcd;
+    background: #ffffff;
+    cursor: pointer;
+    position: relative;
+}
+
+.save-order-checkbox:checked::after {
+    content: '✓';
+    color: green;
+    position: absolute;
+    top: 0;
+    left: 3px;
+    font-size: 16px;
+}
+
+.save-order-label {
+    cursor: pointer;
+    font-size: 1rem;
+    color: #000;
+}
+
+.checkout-button {
+    background: #008000;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
-/* ****** Telefon ***** */
-@media (max-width: 500px){
+.checkout-button:hover {
+    background: #006100;
+}
+
+.order-container {
+    margin-bottom: 20px;
+}
+
+
+.order-table {
+    flex: 1;
+}
+
+.order-summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-left: 20px;
+}
+
+.order-summary .trashcan-button {
+    margin-bottom: 10px;
+}
+
+
+
+@media (max-width: 500px) {
     .top-text .title {
-        font-family: Arial, sans-serif;
         font-size: 2rem;
-        margin: 0;
-        padding: 0;
     }
     .top-text .rubric {
-        font-family: Arial, sans-serif;
         font-size: 1rem;
-        margin: 0;
-        padding: 0;
     }
-    .main-content div div {
-        display: flex;
+    .button-container {
         flex-direction: column;
-        gap: 10px;
+        align-items: center;
     }
-
+    .save-order-container, .checkout-button {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
 }
-
-/*
-.thank-you-message{
-    font-size: 2rem;
-} */
