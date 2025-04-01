@@ -20,6 +20,7 @@ public class AdminController {
 
         app.get("order", ctx -> orders(ctx, connectionPool));
         app.get("user", ctx -> users(ctx, connectionPool));
+        app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
     }
 
     public static void orders(Context ctx, ConnectionPool connectionPool){
@@ -57,5 +58,22 @@ public class AdminController {
         AdminMapper admin_Mapper = new AdminMapper();
         List<User> users = admin_Mapper.getAllUsers(connectionPool);
         ctx.attribute("users", users);
+    }
+
+    private static void deleteOrder(Context ctx, ConnectionPool connectionPool) {
+        try {
+            int orderId = Integer.parseInt(ctx.formParam("orderId"));
+            System.out.println(orderId);
+            AdminMapper.deleteOrder(orderId, connectionPool);
+            List<Order> orders = AdminMapper.getOrders(connectionPool);
+            ctx.attribute("orders", orders);
+            ctx.redirect("/order"); // Render the page
+
+        } catch (NumberFormatException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

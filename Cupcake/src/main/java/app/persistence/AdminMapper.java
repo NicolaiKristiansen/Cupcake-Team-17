@@ -11,7 +11,7 @@ import java.util.List;
 public class AdminMapper {
     //Class made by Nicolai
 
-    public void deleteOrder(Order order, ConnectionPool connectionPool) throws SQLException {
+    public static void deleteOrder(int order, ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
         //In the html we need to make it so when you select an order and press delete it calls this with the order as the parameter
 
@@ -21,7 +21,7 @@ public class AdminMapper {
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 ){
-            preparedStatement.setInt(1, order.getId());
+            preparedStatement.setInt(1, order);
 
             int altereddatabase = preparedStatement.executeUpdate();
             if(altereddatabase > 0){
@@ -130,7 +130,7 @@ public class AdminMapper {
     }
 
 
-    public List<Order> getOrders(ConnectionPool connectionPool) throws SQLException {
+    public static List<Order> getOrders(ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
         ArrayList<Order> orders = new ArrayList<Order>();
         String sql = "SELECT * FROM \"order\"";
