@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.entities.Order;
+import app.entities.OrdersAndUsers;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.AdminMapper;
@@ -17,12 +18,19 @@ public class AdminController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
 
-        app.get("order", ctx -> ctx.render("admin_order.html"));
+        app.get("order", ctx -> orders(ctx, connectionPool));
         app.get("user", ctx -> users(ctx, connectionPool));
     }
 
     public static void orders(Context ctx, ConnectionPool connectionPool){
-        ctx.render("admin_order.html");
+        AdminController adminController = new AdminController();
+        try {
+            adminController.giveOrdersToHTML(connectionPool, ctx); // Pass users to HTML
+            ctx.render("admin_order.html"); // Render the page
+        } catch (SQLException e) {
+            ctx.attribute("message", "Error fetching users: " + e.getMessage());
+            ctx.render("error.html"); // Render an error page if needed
+        }
     }
 
     public static void users(Context ctx, ConnectionPool connectionPool) {
@@ -40,7 +48,7 @@ public class AdminController {
     public void giveOrdersToHTML(ConnectionPool connectionPool, Context ctx) throws SQLException {
         //We take our orders from the database and make them usable on html that use the key orders. This ${orders}
         AdminMapper admin_Mapper = new AdminMapper();
-        List<Order> orders = admin_Mapper.getOrders(connectionPool);
+        List<OrdersAndUsers> orders = admin_Mapper.getOrdersAndUsers(connectionPool);
         ctx.attribute("orders", orders);
     }
 

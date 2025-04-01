@@ -39,12 +39,11 @@
                     <th>Kunde ID</th>
                     <th>Kunde email</th>
                     <th>Kunde penge</th>
-                    <th>Rediger</th>
-                    <th>Slet</th>
+
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user : ${userList}">
+                <tr th:each="user : ${users}">
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.money}"></td>

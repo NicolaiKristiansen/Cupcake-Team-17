@@ -1,6 +1,7 @@
 package app.persistence;
 
 import app.entities.Order;
+import app.entities.OrdersAndUsers;
 import app.entities.User;
 
 import java.sql.*;
@@ -76,6 +77,58 @@ public class AdminMapper {
         }
         return users;
     }
+
+
+    // to be made
+    public List<User> getAllUsersWithoutAdmin(ConnectionPool connectionPool) throws SQLException {
+        //Function made by Nicolai
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM \"user\"";
+
+        try(
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ){
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                float money = resultSet.getFloat("money");
+                String role = resultSet.getString("role");
+
+                User user = new User(id, email, password, money, role);
+                users.add(user);
+            }
+        }
+        return users;
+    }
+
+    public List<OrdersAndUsers> getOrdersAndUsers(ConnectionPool connectionPool) throws SQLException {
+        //Function made by Nicolai
+        ArrayList<OrdersAndUsers> orders = new ArrayList<OrdersAndUsers>();
+        String sql = "SELECT public.order.id, public.user.email FROM public.order JOIN public.user ON user_id = public.user.id";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);
+        ){
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int id = rs.getInt("id");
+                String name = rs.getString("email");
+
+
+                OrdersAndUsers ordersAndUsers = new OrdersAndUsers(id, name);
+                orders.add(ordersAndUsers);
+            }
+        }
+        return orders;
+    }
+
 
     public List<Order> getOrders(ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai

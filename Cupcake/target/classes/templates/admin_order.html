@@ -45,19 +45,10 @@
                 <tbody>
 
 
-                <tr>
-                    <td>1</td>
-                    <td>email-652@cphbusiness.dk</td>
-                    <td>edit logo</td>
-                    <td>trash logo</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>email-653@cphbusiness.dk</td>
-                    <td class="cell-transparent">edit logo</td>
-                    <td class="cell-transparent">trash logo</td>
-
-
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.name}"></td>
+                    <td>>Slet</td>
                 </tr>
                 </tbody>
             </table>
