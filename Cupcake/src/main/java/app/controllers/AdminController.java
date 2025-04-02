@@ -21,7 +21,27 @@ public class AdminController {
         app.get("order", ctx -> orders(ctx, connectionPool));
         app.get("user", ctx -> users(ctx, connectionPool));
         app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
+        app.post("updatemoney", ctx -> updateMoney(ctx, connectionPool));
     }
+
+    private static void updateMoney(Context ctx, ConnectionPool connectionPool) {
+        try {
+            int userId = Integer.parseInt(ctx.formParam("userId"));
+            float money = Float.parseFloat(ctx.formParam("money"));
+            System.out.println(userId + " " + money);
+            AdminMapper.updateUsersAllowance(userId, money, connectionPool);
+            // Fetch updated user list
+            List<User> users = AdminMapper.getAllUsersWithoutAdmin(connectionPool);
+            ctx.attribute("users", users);
+            ctx.render("admin_customer.html");
+        } catch (NumberFormatException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("admin_customer.html");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public static void orders(Context ctx, ConnectionPool connectionPool){
         AdminController adminController = new AdminController();
@@ -56,7 +76,7 @@ public class AdminController {
     public void giveUserToHTML(ConnectionPool connectionPool, Context ctx) throws SQLException {
         //We take our users from the database and make them usable on html that use the key users. This $(users)
         AdminMapper admin_Mapper = new AdminMapper();
-        List<User> users = admin_Mapper.getAllUsers(connectionPool);
+        List<User> users = admin_Mapper.getAllUsersWithoutAdmin(connectionPool);
         ctx.attribute("users", users);
     }
 

@@ -81,7 +81,7 @@ public class UserController {
                 } else if (user.getRole().equals("admin")) {
                     ctx.render("admin_index.html");
                 } else {
-                    System.out.println("Doesn't have user role");
+                    System.out.println("Doesn't have a valid role");
                 }
 
 

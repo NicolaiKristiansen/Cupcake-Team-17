@@ -33,25 +33,16 @@ public class AdminMapper {
         }
     }
 
-    public void updateUsersAllowance(User user, float amount, ConnectionPool connectionPool) throws SQLException {
-        //Function made by Nicolai
-        //The parameters are the user we select and the amount we want to insert into the user
-        String sql = "UPDATE \"user\" SET allowance = ? WHERE id = ?";
-
+    public static void updateUsersAllowance(int userId, float money, ConnectionPool connectionPool) throws SQLException {
+        String sql = "UPDATE public.user SET money = ? WHERE public.user.role = 'user' AND id = ?";
         try (Connection connection = connectionPool.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);){
-            preparedStatement.setFloat(1, amount);
-            preparedStatement.setInt(2, user.getId());
-
-            int altereddatabase = preparedStatement.executeUpdate();
-            if (altereddatabase > 0){
-                System.out.println("User allowance updated successfully");
-            }else {
-                System.out.println("User allowance update failed");
-            }
-
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setFloat(1, money);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
         }
     }
+
 
     public List<User> getAllUsers(ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
@@ -80,10 +71,10 @@ public class AdminMapper {
 
 
     // to be made
-    public List<User> getAllUsersWithoutAdmin(ConnectionPool connectionPool) throws SQLException {
+    public static List<User> getAllUsersWithoutAdmin(ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM \"user\"";
+        String sql = "SELECT * FROM \"user\" WHERE role = 'user'";
 
         try(
                 Connection connection = connectionPool.getConnection();
