@@ -2,6 +2,7 @@ package app.persistence;
 
 import app.entities.Order;
 import app.entities.User;
+import io.javalin.http.Context;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +13,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class OrderMapper {
-    //Class made by Nicolai
-
+    Order order;
 
     public void insertOrder(Order order, ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
@@ -43,7 +43,7 @@ public class OrderMapper {
         }
     }
 
-    public void setOrdersForUser(User user, ConnectionPool connectionPool) throws SQLException {
+    public void setSavedOrdersForUser(User user, ConnectionPool connectionPool) throws SQLException {
         //Used to give a list of orders to a user
         ArrayList<Order> orders = new ArrayList<>();
         String sql = "SELECT * FROM \"public\".\"order\" WHERE user_id = ? ORDER BY id DESC";
@@ -71,5 +71,45 @@ public class OrderMapper {
         }
     }
 
+    public Order makeOrder(User user, float total_price, ConnectionPool connectionPool) throws SQLException {
+        int id = getNewestOrderId(connectionPool);
+        Date date = new Date(System.currentTimeMillis()); //We need the current date
+        int user_id = user.getId(); //When the user logs in it makes a user object, that is the object we need
+        boolean saved_order = false; //This will be based on if in basket the checkbox is saying yes or no
+
+
+
+        Order order = new Order(id, date, total_price, user_id, saved_order);
+        return order;
+    }
+
+    public int getNewestOrderId(ConnectionPool connectionPool) throws SQLException {
+        int id = 0;
+        String sql = "SELECT id FROM \"public\".\"order\" ORDER BY id DESC LIMIT 1";
+
+        try(
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ){
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                 id = rs.getInt("id") + 1;
+            }
+
+        }
+        return id;
+    }
+
+    public void checkIfOrderShouldBeSavedForUser(Order order, Context ctx, ConnectionPool connectionPool) throws SQLException {
+        String savedOrNot = ctx.formParam("savedOrder");
+        boolean shouldItBeSaved = false;
+
+        if (savedOrNot != null && savedOrNot.equals("on")) {
+            shouldItBeSaved = true;
+        }
+
+        // Set the order's saved status
+        order.setSaved_order(shouldItBeSaved);
+    }
 
 }

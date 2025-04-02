@@ -2,9 +2,13 @@ package app.controllers;
 
 import app.entities.CupcakeBottom;
 import app.entities.CupcakeTop;
+import app.entities.Orderline;
+import app.persistence.BasketMapper;
 import app.persistence.ConnectionPool;
 import app.persistence.CupcakeMapper;
 import io.javalin.http.Context;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CupcakeController {
@@ -24,5 +28,12 @@ public class CupcakeController {
         CupcakeMapper cupcake_Mapper = new CupcakeMapper();
         List<CupcakeBottom> cupcakeBottoms = cupcake_Mapper.getCupcakeBottomOptions(connectionPool);
         ctx.attribute("cupcakeBottoms", cupcakeBottoms);
+    }
+
+    public void giveOrderlinesToHTML(ConnectionPool connectionPool, Context ctx) {
+        BasketMapper basketMapper = new BasketMapper();
+        List<Orderline> orderlines = basketMapper.getOrderlinesForBasket(ctx);
+        ctx.attribute("orderlines", orderlines);
+
     }
 }

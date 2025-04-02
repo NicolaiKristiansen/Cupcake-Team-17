@@ -4,10 +4,7 @@ import app.entities.Order;
 import app.entities.Orderline;
 import app.entities.User;
 import app.exceptions.DatabaseException;
-import app.persistence.ConnectionPool;
-import app.persistence.OrderMapper;
-import app.persistence.OrderlineMapper;
-import app.persistence.UserMapper;
+import app.persistence.*;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -31,14 +28,51 @@ public class UserController {
         app.get("createuser", ctx -> ctx.render("createuser.html"));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
 
-        app.get("addtobasket", ctx -> ctx.render("basket.html"));
+        app.post("addtobasket", ctx -> addtoBasket(ctx, connectionPool));
+        app.get("addtobasket", ctx -> addtoBasket(ctx, connectionPool));
         //app.post("addtobasket", ctx -> basket(ctx, connectionPool));
 
         app.get("order", ctx -> ctx.render("admin_order.html"));
         app.get("savedOrders", ctx -> savedOrdersPage(ctx, connectionPool));
+        app.get("basket", ctx -> basket(ctx, connectionPool));
+        app.get("receipt", ctx -> receipt(ctx, connectionPool));
+        app.post("receipt", ctx -> receipt(ctx, connectionPool));
+    }
+
+    public static void receipt(Context ctx, ConnectionPool connectionPool) throws SQLException {
+        BasketMapper basketMapper = new BasketMapper();
+        OrderMapper orderMapper = new OrderMapper();
+        basketMapper.sendTotalPriceOfCupcakes(ctx);
+        cupcakeController.giveOrderlinesToHTML(connectionPool, ctx);
+        Order order = orderMapper.makeOrder(user, basketMapper.sendTotalPriceOfCupcakes(ctx),connectionPool);
+        List<Orderline> orderlines = basketMapper.getOrderlinesForBasket(ctx);
+        orderMapper.checkIfOrderShouldBeSavedForUser(order, ctx, connectionPool);
+        orderMapper.insertOrder(order, connectionPool);
+
+        for (Orderline orderline : orderlines) {
+            orderline.setOrder_id(order.getId());
+        }
+        for (Orderline orderline : orderlines) {
+            orderlineMapper.insertOrderline(orderline, connectionPool);
+        }
+
+        ctx.render("receipt.html");
+    }
+
+
+
+    public static void addtoBasket(Context ctx, ConnectionPool connectionPool) {
+        BasketMapper basketController = new BasketMapper();
+        basketController.createOrderlinesForBasket(ctx, connectionPool);
+        cupcakeController.giveCupcakeTopOptionsToHTML(connectionPool, ctx);
+        cupcakeController.giveCupcakeBottomOptionsToHTML(connectionPool, ctx);
+        ctx.render("home.html");
     }
 
     public static void basket(Context ctx, ConnectionPool connectionPool){
+        BasketMapper basketMapper = new BasketMapper();
+        basketMapper.sendTotalPriceOfCupcakes(ctx);
+        cupcakeController.giveOrderlinesToHTML(connectionPool, ctx);
         ctx.render("basket.html");
     }
 
@@ -96,7 +130,7 @@ public class UserController {
 
     public static void savedOrdersPage(Context ctx, ConnectionPool connectionPool) throws SQLException {
         // Retrieve all orders for the current user
-        orderMapper.setOrdersForUser(user, connectionPool);
+        orderMapper.setSavedOrdersForUser(user, connectionPool);
         List<Order> savedOrders = user.getOrders();
 
         // Retrieve all orderlines for the orders

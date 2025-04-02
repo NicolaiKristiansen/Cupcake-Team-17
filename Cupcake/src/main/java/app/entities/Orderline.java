@@ -27,6 +27,13 @@ public class Orderline {
         this.price = price;
     }
 
+    public Orderline(int cupcake_top_id, int cupcake_bottom_id, int amount, float price) {
+        this.cupcake_top_id = cupcake_top_id;
+        this.cupcake_bottom_id = cupcake_bottom_id;
+        this.amount = amount;
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }
