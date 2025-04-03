@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin ordre</title>
+    <link href="../public/css/standard_template.css" th:href="@{/css/standard_template.css}" rel="stylesheet"/>
+    <link href="../public/css/table.css" th:href="@{/css/table.css}" rel="stylesheet"/>
+
+    <style>
+        .table-layout td:nth-child(n+3) {
+            background: transparent;
+            border: 0;
+        }
+
+        .left-button {
+            gap: 20px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img th:src="@{/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
+</header>
+
+<div class="container">
+    <div class="top-bar">
+        <div class left>
+            <a href="admin_customer.html" th:href="@{/user}" class="left-button">Kunder</a>
+            <a href="admin_order.html" th:href="@{/order}" class="left-button">Ordrer</a>
+        </div>
+        <div class="right">
+            <p><span th:text="${session.currentUser.email}"></span></p>
+        </div>
+    </div>
+
+
+    <div class="main-content">
+        <div class="table-container">
+            <h2>Her kan du slette ordre!</h2>
+            <table class="table-layout">
+                <thead>
+                <tr>
+                    <th>Ordre ID</th>
+                    <th>Kunde Navn</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.name}"></td>
+
+                    <td>
+                        <form method="post" th:action="@{/deleteorder}">
+                            <button type="submit" name="orderId" th:value="${order.id}">Slet</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

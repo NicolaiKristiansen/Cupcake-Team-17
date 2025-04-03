@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <link href="../public/css/standard_template.css" th:href="@{/css/standard_template.css}" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <img th:src="@{/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
+</header>
+
+<div class="container">
+    <div class="top-bar">
+        <div class left>
+        <a href="admin_order.html" th:href="@{/order}" class="left-button">Ordrer</a>
+        <a href="admin_customer.html" th:href="@{/user}" class="left-button">Kunder</a>
+        </div>
+        <div class="right">
+            <p><span th:text="${session.currentUser.email}"></span></p>
+
+        </div>
+    </div>
+
+    <div class="main-content">
+
+
+    </div>
+</div>
+</body>
+</html>
