@@ -20,6 +20,8 @@ public class BasketMapper {
         // Initialize prices
         float bottomPrice = 0;
         float topPrice = 0;
+        String top_name = "";
+        String bottom_name = "";
 
         // Hent de valgte cupcake IDs og mængde
         String cupcakeTopID = ctx.formParam("cupcaketop");
@@ -45,11 +47,13 @@ public class BasketMapper {
         for (CupcakeBottom cupcakeBottom : cupcakeBottomList) {
             if (cupcakeBottom.getId() == bottomID) {
                 bottomPrice = cupcakeBottom.getPrice();
+                bottom_name = cupcakeBottom.getName();
             }
         }
         for (CupcakeTop cupcakeTop : cupcakeTopList) {
             if (cupcakeTop.getId() == topID) {
                 topPrice = cupcakeTop.getPrice();
+                top_name = cupcakeTop.getName();
             }
         }
 
@@ -57,7 +61,7 @@ public class BasketMapper {
         float totalprice = (topPrice + bottomPrice) * amount;
 
         // Create an Orderline object
-        Orderline orderline = new Orderline(topID, bottomID, amount, totalprice);
+        Orderline orderline = new Orderline(topID, bottomID, top_name, bottom_name, amount, totalprice);
 
         // Retrieve the orderlinesForBasket from the session (if any)
         List<Orderline> orderlinesForBasket = ctx.sessionAttribute("orderlinesForBasket");

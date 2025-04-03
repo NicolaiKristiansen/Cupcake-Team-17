@@ -132,6 +132,7 @@ public class UserController {
     }
 
     public static void savedOrdersPage(Context ctx, ConnectionPool connectionPool) throws SQLException {
+        BasketMapper basketMapper = new BasketMapper();
         // Retrieve all orders for the current user
         orderMapper.setSavedOrdersForUser(user, connectionPool);
         List<Order> savedOrders = user.getOrders();
@@ -141,11 +142,11 @@ public class UserController {
         for (Order order : savedOrders) {
             // We get orderlines for each order
             List<Orderline> savedOrderlines = orderlineMapper.getOrderlineByOrderid(user, connectionPool);
-            order.setOrderlines(savedOrderlines);  // Assuming Order has a setOrderlines method
+            order.setOrderlines(savedOrderlines);
+            ctx.attribute("savedOrderlines", savedOrderlines);
         }
+        basketMapper.sendTotalPriceOfCupcakes(ctx);
 
-        // Set the orders in the context for the Thymeleaf template to access
-        ctx.attribute("savedOrders", savedOrders);
 
         // Render the saved orders page
         ctx.render("saved_orders.html");

@@ -46,7 +46,7 @@ public class OrderMapper {
     public void setSavedOrdersForUser(User user, ConnectionPool connectionPool) throws SQLException {
         //Used to give a list of orders to a user
         ArrayList<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM \"public\".\"order\" WHERE user_id = ? ORDER BY id DESC";
+        String sql = "SELECT * FROM \"public\".\"order\" WHERE user_id = ? AND saved_order = true ORDER BY id DESC";
 
         try(
                 Connection connection = connectionPool.getConnection();
@@ -61,10 +61,10 @@ public class OrderMapper {
                 float total_price = rs.getFloat("total_price");
                 int user_id = rs.getInt("user_id");
                 boolean saved_order = rs.getBoolean("saved_order");
-                if(saved_order) {
+
                     Order order = new Order(id, date, total_price, user_id, saved_order);
                     orders.add(order);
-                }
+
 
             }
             user.setOrders(orders);

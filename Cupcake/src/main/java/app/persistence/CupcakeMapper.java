@@ -30,7 +30,7 @@ public class CupcakeMapper {
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 int id = rs.getInt("id");
-                String name = rs.getString("name");
+                String name = rs.getString("top_name");
                 int price = rs.getInt("price");
 
                 CupcakeTop cupcakeTop = new CupcakeTop(id, name, price);
@@ -57,7 +57,7 @@ public class CupcakeMapper {
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 int id = rs.getInt("id");
-                String name = rs.getString("name");
+                String name = rs.getString("bottom_name");
                 int price = rs.getInt("price");
 
                 CupcakeBottom cupcakeBottom = new CupcakeBottom(id, name, price);

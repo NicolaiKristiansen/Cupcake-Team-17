@@ -37,7 +37,14 @@ public class OrderlineMapper {
 
     public ArrayList<Orderline> getOrderlineByOrderid(User user, ConnectionPool connectionPool) throws SQLException {
         ArrayList<Orderline> orderlines = new ArrayList<>();
-        String sql = "SELECT * FROM orderline WHERE order_id = ? ORDER BY order_id ASC";
+        String sql = "SELECT orderline.id, orderline.cupcake_top_id, " +
+                "orderline.cupcake_bottom_id, cupcake_top.top_name, " +
+                "cupcake_bottom.bottom_name, orderline.order_id, orderline.amount, orderline.price " +
+                "FROM public.orderline " +
+                "JOIN cupcake_top ON orderline.cupcake_top_id = cupcake_top.id " +
+                "JOIN cupcake_bottom ON orderline.cupcake_bottom_id = cupcake_bottom.id " +
+                "WHERE order_id = ? " +
+                "ORDER BY id ASC";
 
         List<Order> orders = user.getOrders();
         try(
@@ -53,11 +60,13 @@ public class OrderlineMapper {
                 int id = rs.getInt("id");
                 int cupcake_top_id = rs.getInt("cupcake_top_id");
                 int cupcake_bottom_id = rs.getInt("cupcake_bottom_id");
+                String cupcake_top_name = rs.getString("top_name");
+                String cupcake_bottom_name = rs.getString("bottom_name");
                 int order_id = rs.getInt("order_id");
                 int amount = rs.getInt("amount");
                 float price = rs.getFloat("price");
 
-                Orderline orderline = new Orderline(id, cupcake_top_id, cupcake_bottom_id, order_id, amount, price);
+                Orderline orderline = new Orderline(id, cupcake_top_id, cupcake_bottom_id, cupcake_top_name, cupcake_bottom_name, order_id, amount, price);
                 orderlines.add(orderline);
             }
         }
