@@ -17,7 +17,7 @@ import java.util.List;
 public class AdminController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
-        app.get("order", ctx -> orders(ctx, connectionPool));
+        app.get("adminorder", ctx -> orders(ctx, connectionPool));
         app.get("user", ctx -> users(ctx, connectionPool));
         app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
         app.post("updatemoney", ctx -> updateMoney(ctx, connectionPool));
