@@ -2,14 +2,21 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
-import app.persistence.BasketMapper;
+import app.controllers.AdminController;
 import app.controllers.UserController;
+import app.entities.Order;
+import app.entities.Orderline;
+import app.entities.User;
 import app.exceptions.DatabaseException;
-import app.persistence.*;
+import app.persistence.ConnectionPool;
+import app.persistence.OrderMapper;
+import app.persistence.OrderlineMapper;
+import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
 import java.sql.SQLException;
+import java.sql.Date;
 import java.util.logging.Logger;
 
 
@@ -34,13 +41,10 @@ public class Main {
         }).start(7070);
 
         // Routing
-
         app.get("/", ctx ->  ctx.render("index.html"));
 
+        AdminController.addRoutes(app, connectionPool);
         UserController.addRoutes(app, connectionPool);
-        BasketMapper basketController = new BasketMapper();
-
-
     }
 
 }

@@ -16,7 +16,7 @@
     <div class="top-bar">
         <button class="left-button">Gemte ordrer</button>
         <div class="right">
-            <p><span th:text="${session.currentUser.email}"></span></p>
+            <p>email-652@cphbusiness.dk</p>
             <button class="basket-button">
                 <img th:src="@{/images/basket_red_dot.png}" src="../public/images/basket_red_dot.png" class="basket-icon" />
             </button>
@@ -40,29 +40,42 @@
 
                 </thead>
                 <tbody>
-                <!-- Loop through saved orderlines for each saved order -->
-                <tr th:each="orderline : ${orderlines}">
-                    <td th:text="${orderline.cupcake_top_name}"></td>  <!-- Display cupcake_top_id -->
-                    <td th:text="${orderline.cupcake_bottom_name}"></td> <!-- Display cupcake_bottom_id -->
-                    <td th:text="${orderline.amount}"></td>  <!-- Display amount -->
-                    <td th:text="${orderline.price}"></td>  <!-- Display price -->
+
+                <tr>
+                    <td>Chokolade</td>
+                    <td>Solbær</td>
+                    <td>3</td>
+                    <td>50.95 kr.</td>
+                    <td>
+                        <button class="trashcan-button" type="button">
+                            <img th:src="@{/images/trashcan_icon.png}" src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ikon" />
+                        </button>
+                    </td>
                 </tr>
+
+                <tr>
+                    <td>Vanilje</td>
+                    <td>Chokolade</td>
+                    <td>1</td>
+                    <td>25.00 kr.</td>
+                    <td>
+                        <button class="trashcan-button" type="button">
+                            <img th:src="@{/images/trashcan_icon.png}" src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ikon" />
+                        </button>
+                    </td>
+                </tr>
+
                 </tbody>
             </table>
 
-            <!-- Display total price for each order -->
-            <div class="total-pris" th:text="'Total Price: ' + ${basketTotalPrice}"></div>
+            <div class="total-pris">Total pris: 75.95 kr.</div>
 
             <div class="button-container">
-                <form action="/receipt" method="post">
                 <div class="save-order-container">
-                    <input type="checkbox" id="saveOrder" name="savedOrder" class="save-order-checkbox" />
+                    <input type="checkbox" id="saveOrder" class="save-order-checkbox" />
                     <label for="saveOrder" class="save-order-label">Gem ordre</label>
                 </div>
-                <a th:href="@{/receipt}">
-                <button  class="checkout-button" type="submit">Køb</button>
-                </a>
-                </form>
+                <button class="checkout-button" type="button">Gå til kassen</button>
             </div>
 
         </div>
