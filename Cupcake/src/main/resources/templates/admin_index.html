@@ -4,21 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Home</title>
-    <link href="../public/css/standard_template.css" th:href="@{/public/css/standard_template.css}" rel="stylesheet"/>
+    <link href="../public/css/standard_template.css" th:href="@{/css/standard_template.css}" rel="stylesheet"/>
 </head>
 <body>
 <header>
-    <img th:src="@{/public/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
+    <img th:src="@{/images/cupcakeheader.png}" src="../public/images/cupcakeheader.png" class="header-image"/>
 </header>
 
 <div class="container">
     <div class="top-bar">
         <div class left>
-        <button class="left-button">Ordrer</button>
-        <button class="left-button">Kunder</button>
+        <a href="admin_order.html" th:href="@{/order}" class="left-button">Ordrer</a>
+        <a href="admin_customer.html" th:href="@{/user}" class="left-button">Kunder</a>
         </div>
         <div class="right">
-            <p>email-652@cphbusiness.dk</p>
+            <p><span th:text="${session.currentUser.email}"></span></p>
+
         </div>
     </div>
 

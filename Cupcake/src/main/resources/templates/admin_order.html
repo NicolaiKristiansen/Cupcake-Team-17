@@ -12,6 +12,11 @@
             background: transparent;
             border: 0;
         }
+
+        .left-button {
+            gap: 20px;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -23,11 +28,11 @@
 <div class="container">
     <div class="top-bar">
         <div class left>
-            <button class="left-button">Ordrer</button>
-            <button class="left-button">Kunder</button>
+            <a href="admin_customer.html" th:href="@{/user}" class="left-button">Kunder</a>
+            <a href="admin_order.html" th:href="@{/order}" class="left-button">Ordrer</a>
         </div>
         <div class="right">
-            <p>email-652@cphbusiness.dk</p>
+            <p><span th:text="${session.currentUser.email}"></span></p>
         </div>
     </div>
 
@@ -45,19 +50,15 @@
                 <tbody>
 
 
-                <tr>
-                    <td>1</td>
-                    <td>email-652@cphbusiness.dk</td>
-                    <td>edit logo</td>
-                    <td>trash logo</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>email-653@cphbusiness.dk</td>
-                    <td class="cell-transparent">edit logo</td>
-                    <td class="cell-transparent">trash logo</td>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.name}"></td>
 
-
+                    <td>
+                        <form method="post" th:action="@{/deleteorder}">
+                            <button type="submit" name="orderId" th:value="${order.id}">Slet</button>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
