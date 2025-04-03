@@ -17,20 +17,54 @@ import java.util.List;
 public class AdminController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
-
         app.get("order", ctx -> orders(ctx, connectionPool));
         app.get("user", ctx -> users(ctx, connectionPool));
         app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
         app.post("updatemoney", ctx -> updateMoney(ctx, connectionPool));
     }
 
+
+
+    public static void orders(Context ctx, ConnectionPool connectionPool){
+        AdminController adminController = new AdminController();
+        try {
+            adminController.giveOrdersToHTML(connectionPool, ctx);
+            ctx.render("admin_order.html");
+        } catch (SQLException e) {
+            ctx.attribute("message", "Error fetching users: " + e.getMessage());
+            ctx.render("error.html");
+        }
+    }
+
+    public static void users(Context ctx, ConnectionPool connectionPool) {
+        AdminController adminController = new AdminController();
+        try {
+            adminController.giveUserToHTML(connectionPool, ctx);
+            ctx.render("admin_customer.html");
+        } catch (SQLException e) {
+            ctx.attribute("message", "Error fetching users: " + e.getMessage());
+            ctx.render("error.html");
+        }
+    }
+
+    public void giveOrdersToHTML(ConnectionPool connectionPool, Context ctx) throws SQLException {
+        //We take our orders from the database and make them usable on html that use the key orders. This ${orders}
+        List<OrdersAndUsers> orders = AdminMapper.getOrdersAndUsers(connectionPool);
+        ctx.attribute("orders", orders);
+    }
+
+    public void giveUserToHTML(ConnectionPool connectionPool, Context ctx) throws SQLException {
+        //We take our users from the database and make them usable on html that use the key users. This $(users)
+        List<User> users = AdminMapper.getAllUsersWithoutAdmin(connectionPool);
+        ctx.attribute("users", users);
+    }
+
+
     private static void updateMoney(Context ctx, ConnectionPool connectionPool) {
         try {
             int userId = Integer.parseInt(ctx.formParam("userId"));
             float money = Float.parseFloat(ctx.formParam("money"));
-            System.out.println(userId + " " + money);
             AdminMapper.updateUsersAllowance(userId, money, connectionPool);
-            // Fetch updated user list
             List<User> users = AdminMapper.getAllUsersWithoutAdmin(connectionPool);
             ctx.attribute("users", users);
             ctx.render("admin_customer.html");
@@ -42,44 +76,6 @@ public class AdminController {
         }
     }
 
-
-    public static void orders(Context ctx, ConnectionPool connectionPool){
-        AdminController adminController = new AdminController();
-        try {
-            adminController.giveOrdersToHTML(connectionPool, ctx); // Pass users to HTML
-            ctx.render("admin_order.html"); // Render the page
-        } catch (SQLException e) {
-            ctx.attribute("message", "Error fetching users: " + e.getMessage());
-            ctx.render("error.html"); // Render an error page if needed
-        }
-    }
-
-    public static void users(Context ctx, ConnectionPool connectionPool) {
-        AdminController adminController = new AdminController();
-        try {
-            adminController.giveUserToHTML(connectionPool, ctx); // Pass users to HTML
-            ctx.render("admin_customer.html"); // Render the page
-        } catch (SQLException e) {
-            ctx.attribute("message", "Error fetching users: " + e.getMessage());
-            ctx.render("error.html"); // Render an error page if needed
-        }
-    }
-
-
-    public void giveOrdersToHTML(ConnectionPool connectionPool, Context ctx) throws SQLException {
-        //We take our orders from the database and make them usable on html that use the key orders. This ${orders}
-        AdminMapper admin_Mapper = new AdminMapper();
-        List<OrdersAndUsers> orders = admin_Mapper.getOrdersAndUsers(connectionPool);
-        ctx.attribute("orders", orders);
-    }
-
-    public void giveUserToHTML(ConnectionPool connectionPool, Context ctx) throws SQLException {
-        //We take our users from the database and make them usable on html that use the key users. This $(users)
-        AdminMapper admin_Mapper = new AdminMapper();
-        List<User> users = admin_Mapper.getAllUsersWithoutAdmin(connectionPool);
-        ctx.attribute("users", users);
-    }
-
     private static void deleteOrder(Context ctx, ConnectionPool connectionPool) {
         try {
             int orderId = Integer.parseInt(ctx.formParam("orderId"));
@@ -87,8 +83,7 @@ public class AdminController {
             AdminMapper.deleteOrder(orderId, connectionPool);
             List<Order> orders = AdminMapper.getOrders(connectionPool);
             ctx.attribute("orders", orders);
-            ctx.redirect("/order"); // Render the page
-
+            ctx.redirect("/order");
         } catch (NumberFormatException e) {
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");

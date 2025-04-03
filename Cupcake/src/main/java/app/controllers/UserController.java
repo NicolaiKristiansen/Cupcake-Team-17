@@ -22,7 +22,6 @@ public class UserController {
         app.get("logout", ctx -> logout(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
-
         app.get("addtobasket", ctx -> ctx.render("basket.html"));
     }
 
@@ -71,15 +70,12 @@ public class UserController {
             try {
                 User user = UserMapper.login(email, password, connectionPool);
                 ctx.sessionAttribute("currentUser", user);
-                // Hvis ja, send videre til task side
-                //ctx.attribute("taskList",  taskList);
-
                 if(user.getRole().equals("user")) {
                     cupcakeController.giveCupcakeTopOptionsToHTML(connectionPool, ctx);
                     cupcakeController.giveCupcakeBottomOptionsToHTML(connectionPool, ctx);
                     ctx.render("home.html");
                 } else if (user.getRole().equals("admin")) {
-                    ctx.render("admin_index.html");
+                    ctx.render("admin_order.html");
                 } else {
                     System.out.println("Doesn't have a valid role");
                 }

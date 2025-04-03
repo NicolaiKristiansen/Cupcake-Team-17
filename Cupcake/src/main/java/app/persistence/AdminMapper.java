@@ -96,7 +96,7 @@ public class AdminMapper {
         return users;
     }
 
-    public List<OrdersAndUsers> getOrdersAndUsers(ConnectionPool connectionPool) throws SQLException {
+    public static List<OrdersAndUsers> getOrdersAndUsers(ConnectionPool connectionPool) throws SQLException {
         //Function made by Nicolai
         ArrayList<OrdersAndUsers> orders = new ArrayList<OrdersAndUsers>();
         String sql = "SELECT public.order.id, public.user.email FROM public.order JOIN public.user ON user_id = public.user.id";
