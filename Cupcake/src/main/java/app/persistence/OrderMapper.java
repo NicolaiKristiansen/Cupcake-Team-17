@@ -72,32 +72,38 @@ public class OrderMapper {
     }
 
     public Order makeOrder(User user, float total_price, ConnectionPool connectionPool) throws SQLException {
-        int id = getNewestOrderId(connectionPool);
         Date date = new Date(System.currentTimeMillis()); //We need the current date
         int user_id = user.getId(); //When the user logs in it makes a user object, that is the object we need
         boolean saved_order = false; //This will be based on if in basket the checkbox is saying yes or no
 
 
 
-        Order order = new Order(id, date, total_price, user_id, saved_order);
+        Order order = new Order(date, total_price, user_id, saved_order);
         return order;
     }
 
-    public int getNewestOrderId(ConnectionPool connectionPool) throws SQLException {
-        int id = 0;
-        String sql = "SELECT id FROM \"public\".\"order\" ORDER BY id DESC LIMIT 1";
+    public Order getNewestOrder(ConnectionPool connectionPool) throws SQLException {
+        String sql = "SELECT * FROM \"public\".\"order\" ORDER BY id DESC LIMIT 1";
+        Order order = null;
 
         try(
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         ){
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                 id = rs.getInt("id") + 1;
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                Date date = rs.getDate("date");
+                float total_price = rs.getFloat("total_price");
+                int user_id = rs.getInt("user_id");
+                boolean saved_order = rs.getBoolean("saved_order");
+
+                 order = new Order(id, date, total_price, user_id, saved_order);
+
             }
 
         }
-        return id;
+        return order;
     }
 
     public void checkIfOrderShouldBeSavedForUser(Order order, Context ctx, ConnectionPool connectionPool) throws SQLException {

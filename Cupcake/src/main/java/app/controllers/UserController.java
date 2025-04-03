@@ -44,13 +44,16 @@ public class UserController {
         OrderMapper orderMapper = new OrderMapper();
         basketMapper.sendTotalPriceOfCupcakes(ctx);
         cupcakeController.giveOrderlinesToHTML(connectionPool, ctx);
+
         Order order = orderMapper.makeOrder(user, basketMapper.sendTotalPriceOfCupcakes(ctx),connectionPool);
         List<Orderline> orderlines = basketMapper.getOrderlinesForBasket(ctx);
         orderMapper.checkIfOrderShouldBeSavedForUser(order, ctx, connectionPool);
         orderMapper.insertOrder(order, connectionPool);
 
+        Order newestOrder = orderMapper.getNewestOrder(connectionPool);
+
         for (Orderline orderline : orderlines) {
-            orderline.setOrder_id(order.getId());
+            orderline.setOrder_id(newestOrder.getId());
         }
         for (Orderline orderline : orderlines) {
             orderlineMapper.insertOrderline(orderline, connectionPool);

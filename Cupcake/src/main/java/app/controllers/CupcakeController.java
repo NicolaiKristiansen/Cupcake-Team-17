@@ -30,6 +30,18 @@ public class CupcakeController {
         ctx.attribute("cupcakeBottoms", cupcakeBottoms);
     }
 
+    public void giveCupcakeBottomOptionNamessToHTML(Orderline savedOrderlines, ConnectionPool connectionPool, Context ctx) {
+        CupcakeMapper cupcake_Mapper = new CupcakeMapper();
+        List<CupcakeBottom> cupcakeBottoms = cupcake_Mapper.getCupcakeBottomOptions(connectionPool);
+        ctx.attribute("cupcakeBottoms", cupcakeBottoms);
+    }
+
+    public void giveCupcakeTopOptionsNameToHTML(Orderline savedOrderline, ConnectionPool connectionPool, Context ctx) {
+        CupcakeMapper cupcake_Mapper = new CupcakeMapper();
+        List<CupcakeTop> cupcakeTops = cupcake_Mapper.getCupcakeTopOptions(connectionPool);
+        ctx.attribute("cupcakeTops", cupcakeTops);
+    }
+
     public void giveOrderlinesToHTML(ConnectionPool connectionPool, Context ctx) {
         BasketMapper basketMapper = new BasketMapper();
         List<Orderline> orderlines = basketMapper.getOrderlinesForBasket(ctx);
