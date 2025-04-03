@@ -16,7 +16,7 @@
     <div class="top-bar">
         <button class="left-button">Gemte ordrer</button>
         <div class="right">
-            <p>email-652@cphbusiness.dk</p>
+            <p><span th:text="${session.currentUser.email}"></span></p>
             <button class="basket-button">
                 <img th:src="@{/images/basket_red_dot.png}" src="../public/images/basket_red_dot.png" class="basket-icon" />
             </button>
