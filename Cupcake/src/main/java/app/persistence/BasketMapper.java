@@ -2,8 +2,13 @@ package app.persistence;
 
 import app.entities.CupcakeBottom;
 import app.entities.CupcakeTop;
+import app.entities.Order;
 import app.entities.Orderline;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,4 +108,28 @@ public class BasketMapper {
         ctx.attribute("basketTotalPrice", basketTotalPrice);
         return basketTotalPrice;
     }
+
+    public void priceOfAOrder(List<Order> savedorders, Context ctx, ConnectionPool connectionPool) throws SQLException {
+        String sql = "SELECT total_price FROM \"order\" JOIN orderline ON \"order\".id = orderline.order_id WHERE saved_order = true and user_id = ? ORDER BY \"order\".id DESC";
+        List<Float> prices = new ArrayList<>();
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            // Loop through all orders and fetch the total price for each one
+            for (Order order : savedorders) {
+                ps.setInt(1, order.getUser_id());  // Set the user_id for the prepared statement
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    float price = rs.getFloat("total_price");
+                    prices.add(price);  // Add each order's total price to the list
+                }
+            }
+
+            // Set the prices list in the context to be used in the template
+            ctx.attribute("orderPrices", prices);
+        }
+    }
+
 }

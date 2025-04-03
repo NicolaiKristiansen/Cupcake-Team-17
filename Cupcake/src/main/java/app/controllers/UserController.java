@@ -133,24 +133,28 @@ public class UserController {
 
     public static void savedOrdersPage(Context ctx, ConnectionPool connectionPool) throws SQLException {
         BasketMapper basketMapper = new BasketMapper();
+
         // Retrieve all orders for the current user
         orderMapper.setSavedOrdersForUser(user, connectionPool);
         List<Order> savedOrders = user.getOrders();
 
-        // Retrieve all orderlines for the orders
-        // Here we get orderlines for all orders at once based on user orders.
+        // Retrieve and set orderlines for each order
         for (Order order : savedOrders) {
-            // We get orderlines for each order
-            List<Orderline> savedOrderlines = orderlineMapper.getOrderlineByOrderid(user, connectionPool);
-            order.setOrderlines(savedOrderlines);
-            ctx.attribute("savedOrderlines", savedOrderlines);
+            // Get orderlines for each specific order
+            List<Orderline> savedOrderlines = orderlineMapper.getOrderlineByOrderid(user, connectionPool, order.getId());
+            order.setOrderlines(savedOrderlines);  // Set orderlines for this specific order
         }
-        basketMapper.sendTotalPriceOfCupcakes(ctx);
 
+        // Set the savedOrders list in the context so we can access it in the template
+        ctx.attribute("savedOrders", savedOrders);
 
         // Render the saved orders page
         ctx.render("saved_orders.html");
     }
+
+
+
+
 
 
 }

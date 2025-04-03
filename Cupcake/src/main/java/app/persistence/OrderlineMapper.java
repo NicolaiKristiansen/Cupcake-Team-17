@@ -35,7 +35,7 @@ public class OrderlineMapper {
         }
     }
 
-    public ArrayList<Orderline> getOrderlineByOrderid(User user, ConnectionPool connectionPool) throws SQLException {
+    public ArrayList<Orderline> getOrderlineByOrderid(User user, ConnectionPool connectionPool, int orderId) throws SQLException {
         ArrayList<Orderline> orderlines = new ArrayList<>();
         String sql = "SELECT orderline.id, orderline.cupcake_top_id, " +
                 "orderline.cupcake_bottom_id, cupcake_top.top_name, " +
@@ -46,17 +46,13 @@ public class OrderlineMapper {
                 "WHERE order_id = ? " +
                 "ORDER BY id ASC";
 
-        List<Order> orders = user.getOrders();
-        try(
+        try (
                 Connection connection = connectionPool.getConnection();
-                PreparedStatement ps = connection.prepareStatement(sql);
-                ){
-            for(Order order : orders){
-            int orderid = order.getId();
-
-            ps.setInt(1, orderid);
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, orderId);  // Only fetch orderlines for the specific order
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 int cupcake_top_id = rs.getInt("cupcake_top_id");
                 int cupcake_bottom_id = rs.getInt("cupcake_bottom_id");
@@ -70,7 +66,7 @@ public class OrderlineMapper {
                 orderlines.add(orderline);
             }
         }
-        }
         return orderlines;
     }
+
 }

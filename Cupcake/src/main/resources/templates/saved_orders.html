@@ -26,10 +26,10 @@
   <div class="main-content">
     <div class="order-container">
 
-      <!-- Loop through saved orders -->
-      <div th:each="savedOrderlines : ${savedOrderlines}">
-        <h2 th:text="'Order ' + ${savedOrderlines.order_id}"></h2>
+      <div th:each="order : ${savedOrders}">
+        <h3>Order [[${order.id}]]</h3>
 
+        <!-- Table for displaying orderlines -->
         <table class="table-layout">
           <thead>
           <tr>
@@ -40,20 +40,25 @@
           </tr>
           </thead>
           <tbody>
-          <!-- Loop through saved orderlines for each saved order -->
-          <tr th:each="savedOrderline : ${savedOrderlines}">
-            <td th:text="${savedOrderline.cupcake_top_name}"></td>  <!-- Display cupcake_top_id -->
-            <td th:text="${savedOrderline.cupcake_bottom_name}"></td> <!-- Display cupcake_bottom_id -->
-            <td th:text="${savedOrderline.amount}"></td>  <!-- Display amount -->
-            <td th:text="${savedOrderline.price}"></td>  <!-- Display price -->
+          <!-- Loop through orderlines specific to this order -->
+          <tr th:each="orderline : ${order.orderlines}">
+            <td th:text="${orderline.cupcake_top_name}"></td> <!-- Display top name -->
+            <td th:text="${orderline.cupcake_bottom_name}"></td> <!-- Display bottom name -->
+            <td th:text="${orderline.amount}"></td> <!-- Display quantity -->
+            <td th:text="${orderline.price}"></td> <!-- Display price -->
           </tr>
           </tbody>
         </table>
 
-        <!-- Display total price for each order -->
-        <div class="total-pris" th:text="'Total Price: ' + ${basketTotalPrice}"></div>
+        <!-- Display the total price of this order -->
+        <div class="total-pris" th:text="${order.total_price}"></div>
+      </div>
 
-        <div class="order-actions">
+
+
+
+
+      <div class="order-actions">
           <button class="trashcan-button" type="button">
             <img src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ordre" />
             Slet ordre
