@@ -27,8 +27,8 @@
     <div class="order-container">
 
       <!-- Loop through saved orders -->
-      <div th:each="savedOrder : ${savedOrders}">
-        <h2 th:text="'Order ' + ${savedOrder.id}"></h2>
+      <div th:each="savedOrderlines : ${savedOrderlines}">
+        <h2 th:text="'Order ' + ${savedOrderlines.order_id}"></h2>
 
         <table class="table-layout">
           <thead>
@@ -41,9 +41,9 @@
           </thead>
           <tbody>
           <!-- Loop through saved orderlines for each saved order -->
-          <tr th:each="savedOrderline : ${savedOrder.orderlines}">
-            <td th:text="${savedOrderline.cupcake_top_id}"></td>  <!-- Display cupcake_top_id -->
-            <td th:text="${savedOrderline.cupcake_bottom_id}"></td> <!-- Display cupcake_bottom_id -->
+          <tr th:each="savedOrderline : ${savedOrderlines}">
+            <td th:text="${savedOrderline.cupcake_top_name}"></td>  <!-- Display cupcake_top_id -->
+            <td th:text="${savedOrderline.cupcake_bottom_name}"></td> <!-- Display cupcake_bottom_id -->
             <td th:text="${savedOrderline.amount}"></td>  <!-- Display amount -->
             <td th:text="${savedOrderline.price}"></td>  <!-- Display price -->
           </tr>
@@ -51,7 +51,7 @@
         </table>
 
         <!-- Display total price for each order -->
-        <div class="total-pris" th:text="'Total Price: ' + ${savedOrder.total_price}"></div>
+        <div class="total-pris" th:text="'Total Price: ' + ${basketTotalPrice}"></div>
 
         <div class="order-actions">
           <button class="trashcan-button" type="button">
