@@ -4,8 +4,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+
 class UserMapperTest {
+    private final static String USER = "postgres";
+    private final static String PASSWORD = "postgres";
+    private final static String URL = "jdbc:postgresql://localhost:5432/Cupcake?currentSchema=test";
+
+    private static DatabaseConnector connector;
+    private static BorrowerMapper borrowerMapper;
 
     @BeforeEach
     void setUp() {
@@ -13,6 +23,11 @@ class UserMapperTest {
 
     @AfterEach
     void tearDown() {
+    }
+
+    @Test
+    void testConnection() throws SQLException {
+        assertNotNull(connector.getConnection());
     }
 
     @Test
