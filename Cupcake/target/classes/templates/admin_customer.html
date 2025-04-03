@@ -17,6 +17,10 @@
             gap: 20px;
             text-decoration: none;
         }
+
+        .editButton {
+            width: 60px;
+        }
     </style>
 </head>
 <body>
@@ -54,9 +58,9 @@
                     <td th:text="${user.money}"></td>
                     <td>
                         <form method="post" th:action="@{/updatemoney}">
-                            <input type="text" name="money" th:value="${user.money}"/>
+                            <input type="text" class="editButton" name="money" th:value="${user.money}"/>
                             <input type="hidden" name="userId" th:value="${user.id}"/>
-                            <button type="submit">rediger</button>
+                            <button type="submit">Rediger</button>
                         </form>
                     </td>
                 </tr>

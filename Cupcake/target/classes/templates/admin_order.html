@@ -12,6 +12,11 @@
             background: transparent;
             border: 0;
         }
+
+        .left-button {
+            gap: 20px;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -51,7 +56,7 @@
 
                     <td>
                         <form method="post" th:action="@{/deleteorder}">
-                            <button type="submit" name="orderId" th:value="${order.id}">Delete</button>
+                            <button type="submit" name="orderId" th:value="${order.id}">Slet</button>
                         </form>
                     </td>
                 </tr>
