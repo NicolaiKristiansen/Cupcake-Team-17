@@ -15,7 +15,7 @@
 
 <div class="container">
     <div class="top-bar">
-        <button class="left-button">Gemte ordrer</button>
+        <a class="left-button" th:href="@{/savedOrders}">Gemte ordrer</a>
         <div class="right">
             <p><span th:text="${session.currentUser.email}"></span></p>
             <button class="basket-button">
