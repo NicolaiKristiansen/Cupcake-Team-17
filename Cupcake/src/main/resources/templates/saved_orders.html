@@ -14,7 +14,7 @@
 
 <div class="container">
   <div class="top-bar">
-    <button class="left-button">Gemte ordrer</button>
+
     <div class="right">
       <p><span th:text="${session.currentUser.email}"></span></p>
       <button class="basket-button">
@@ -51,7 +51,7 @@
         </table>
 
         <!-- Display the total price of this order -->
-        <div class="total-pris" th:text="${order.total_price}"></div>
+        <div class="total-pris" th:text="${'Total price: ' + order.total_price}"></div>
       </div>
 
 
@@ -59,10 +59,6 @@
 
 
       <div class="order-actions">
-          <button class="trashcan-button" type="button">
-            <img src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ordre" />
-            Slet ordre
-          </button>
         </div>
       </div>
 

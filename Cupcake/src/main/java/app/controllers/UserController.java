@@ -59,6 +59,7 @@ public class UserController {
         }
 
         ctx.render("receipt.html");
+        
     }
 
 
