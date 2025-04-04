@@ -14,11 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CupcakeMapper {
-    //Class made by Nicolai
 
     public List<CupcakeTop> getCupcakeTopOptions(ConnectionPool connectionPool){
 
-        //Function made by Nicolai
         List<CupcakeTop> cupcakeTops = new ArrayList<CupcakeTop>();
 
         String sql = "SELECT * FROM cupcake_top";
@@ -45,7 +43,6 @@ public class CupcakeMapper {
 
     public List<CupcakeBottom> getCupcakeBottomOptions(ConnectionPool connectionPool){
 
-        //Function made by Nicolai
         List<CupcakeBottom> cupcakeBottoms = new ArrayList<CupcakeBottom>();
 
         String sql = "SELECT * FROM cupcake_bottom";
@@ -71,7 +68,6 @@ public class CupcakeMapper {
     }
 
     public void insertCupcakeTop(CupcakeTop cupcakeTop, ConnectionPool connectionPool) throws SQLException {
-        //Function made by Nicolai
         String sql = "INSERT INTO cupcake_top (name, price) VALUES (?,?)";
 
         try(
@@ -92,7 +88,6 @@ public class CupcakeMapper {
     }
 
     public void insertCupcakeBottom(CupcakeBottom cupcakeBottom, ConnectionPool connectionPool) throws SQLException {
-        //Function made by Nicolai
         String sql = "INSERT INTO cupcake_bottom (name, price) VALUES (?,?)";
 
         try(

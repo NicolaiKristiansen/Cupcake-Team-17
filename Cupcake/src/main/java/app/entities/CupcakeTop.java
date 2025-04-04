@@ -1,7 +1,6 @@
 package app.entities;
 
 public class CupcakeTop {
-    //Class made by Nicolai
 
     private int id;
     private String name;

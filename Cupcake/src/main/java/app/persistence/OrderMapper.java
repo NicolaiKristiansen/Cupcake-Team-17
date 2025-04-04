@@ -13,10 +13,9 @@ import java.sql.Date;
 import java.util.List;
 
 public class OrderMapper {
-    Order order;
+
 
     public void insertOrder(Order order, ConnectionPool connectionPool) throws SQLException {
-        //Function made by Nicolai
         //This function will be used to send an order and then insert it into our database
         String sql = "INSERT INTO public.order (date, total_price, user_id, saved_order) VALUES (?,?,?, ?)";
 

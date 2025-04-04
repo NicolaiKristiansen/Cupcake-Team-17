@@ -1,7 +1,6 @@
 package app.entities;
 
 public class Orderline {
-    //Class made by Nicolai
 
     private int id;
     private int cupcake_top_id;

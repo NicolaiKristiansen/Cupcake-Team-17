@@ -18,11 +18,8 @@ public class BasketMapper {
 
     CupcakeMapper cupcake_Mapper = new CupcakeMapper();
 
-    // Removed the instance-level orderlinesForBasket list
-    // This will be handled by session attributes
 
     public void createOrderlinesForBasket(Context ctx, ConnectionPool connectionPool) {
-        // Initialize prices
         float bottomPrice = 0;
         float topPrice = 0;
         String top_name = "";
@@ -36,7 +33,6 @@ public class BasketMapper {
         // Check for null or empty parameters
         if (cupcakeTopID == null || cupcakeBottomID == null || quantity == null ||
                 cupcakeTopID.isEmpty() || cupcakeBottomID.isEmpty() || quantity.isEmpty()) {
-            System.out.println("Something is null or empty");
             return;
         }
 
@@ -62,13 +58,10 @@ public class BasketMapper {
             }
         }
 
-        // Calculate total price
         float totalprice = (topPrice + bottomPrice) * amount;
 
-        // Create an Orderline object
         Orderline orderline = new Orderline(topID, bottomID, top_name, bottom_name, amount, totalprice);
 
-        // Retrieve the orderlinesForBasket from the session (if any)
         List<Orderline> orderlinesForBasket = ctx.sessionAttribute("orderlinesForBasket");
 
         // If the list doesn't exist, create a new one
@@ -76,10 +69,8 @@ public class BasketMapper {
             orderlinesForBasket = new ArrayList<>();
         }
 
-        // Add the new orderline to the basket
         orderlinesForBasket.add(orderline);
 
-        // Store the updated list of orderlines back in the session
         ctx.sessionAttribute("orderlinesForBasket", orderlinesForBasket);
 
 
@@ -97,7 +88,6 @@ public class BasketMapper {
         // Retrieve the list of orderlines from the session
         List<Orderline> orderlinesForBasket = getOrderlinesForBasket(ctx);
 
-        // Calculate the total price
         if (orderlinesForBasket != null) {
             for (Orderline orderline : orderlinesForBasket) {
                 basketTotalPrice += orderline.getPrice();

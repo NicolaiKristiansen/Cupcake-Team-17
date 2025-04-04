@@ -9,10 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminMapper {
-    //Class made by Nicolai
 
     public static void deleteOrder(int order, ConnectionPool connectionPool) throws SQLException {
-        //Function made by Nicolai
         //In the html we need to make it so when you select an order and press delete it calls this with the order as the parameter
 
         String sql = "DELETE FROM \"public\".\"order\" WHERE id = ?";
@@ -24,12 +22,7 @@ public class AdminMapper {
             preparedStatement.setInt(1, order);
 
             int altereddatabase = preparedStatement.executeUpdate();
-            if(altereddatabase > 0){
-                System.out.println("Order deleted successfully");
-            }
-            else {
-                System.out.println("Order deletion failed");
-            }
+
         }
     }
 
@@ -45,7 +38,6 @@ public class AdminMapper {
 
 
     public List<User> getAllUsers(ConnectionPool connectionPool) throws SQLException {
-        //Function made by Nicolai
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM \"user\"";
 
@@ -72,7 +64,6 @@ public class AdminMapper {
 
     // to be made
     public static List<User> getAllUsersWithoutAdmin(ConnectionPool connectionPool) throws SQLException {
-        //Function made by Nicolai
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM \"user\" WHERE role = 'user'";
 
@@ -97,7 +88,6 @@ public class AdminMapper {
     }
 
     public static List<OrdersAndUsers> getOrdersAndUsers(ConnectionPool connectionPool) throws SQLException {
-        //Function made by Nicolai
         ArrayList<OrdersAndUsers> orders = new ArrayList<OrdersAndUsers>();
         String sql = "SELECT public.order.id, public.user.email FROM public.order JOIN public.user ON user_id = public.user.id";
 
@@ -122,7 +112,6 @@ public class AdminMapper {
 
 
     public static List<Order> getOrders(ConnectionPool connectionPool) throws SQLException {
-        //Function made by Nicolai
         ArrayList<Order> orders = new ArrayList<Order>();
         String sql = "SELECT * FROM \"order\"";
 

@@ -123,11 +123,6 @@ public class UserController {
                     ctx.render("home.html");
                 } else if (user.getRole().equals("admin")) {
                     ctx.render("admin_order.html");
-                } else {
-                    System.out.println("Doesn't have a valid role");
-                }
-                if(user == null) {
-                    System.out.println("User is null");
                 }
 
 

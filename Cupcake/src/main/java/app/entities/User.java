@@ -3,8 +3,6 @@ package app.entities;
 import java.util.ArrayList;
 
 public class User {
-    //Class made by Sofus
-    //Altered by Nicolai to work with new database table
 
     private int id;
     private String email;

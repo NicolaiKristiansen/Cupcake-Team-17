@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.List;
 
 public class Order {
-    //Class made by Nicolai
 
     private int id;
     private Date date;
