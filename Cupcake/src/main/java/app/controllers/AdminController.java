@@ -17,7 +17,7 @@ import java.util.List;
 public class AdminController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
-        app.get("order", ctx -> orders(ctx, connectionPool));
+        app.get("adminorder", ctx -> orders(ctx, connectionPool));
         app.get("user", ctx -> users(ctx, connectionPool));
         app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
         app.post("updatemoney", ctx -> updateMoney(ctx, connectionPool));
@@ -48,13 +48,11 @@ public class AdminController {
     }
 
     public void giveOrdersToHTML(ConnectionPool connectionPool, Context ctx) throws SQLException {
-        //We take our orders from the database and make them usable on html that use the key orders. This ${orders}
         List<OrdersAndUsers> orders = AdminMapper.getOrdersAndUsers(connectionPool);
         ctx.attribute("orders", orders);
     }
 
     public void giveUserToHTML(ConnectionPool connectionPool, Context ctx) throws SQLException {
-        //We take our users from the database and make them usable on html that use the key users. This $(users)
         List<User> users = AdminMapper.getAllUsersWithoutAdmin(connectionPool);
         ctx.attribute("users", users);
     }
@@ -79,7 +77,6 @@ public class AdminController {
     private static void deleteOrder(Context ctx, ConnectionPool connectionPool) {
         try {
             int orderId = Integer.parseInt(ctx.formParam("orderId"));
-            System.out.println(orderId);
             AdminMapper.deleteOrder(orderId, connectionPool);
             List<Order> orders = AdminMapper.getOrders(connectionPool);
             ctx.attribute("orders", orders);

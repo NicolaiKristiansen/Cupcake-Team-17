@@ -3,8 +3,6 @@ package app.entities;
 import java.util.ArrayList;
 
 public class User {
-    //Class made by Sofus
-    //Altered by Nicolai to work with new database table
 
     private int id;
     private String email;
@@ -12,6 +10,7 @@ public class User {
     private float money;
     private String role;
     private ArrayList<Order> orders;
+
 
     public User(int id, String email, String password, float money, String role) {
         this.id = id;

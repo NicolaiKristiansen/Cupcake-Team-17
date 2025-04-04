@@ -1,18 +1,23 @@
 package app.controllers;
 
+import app.entities.Order;
+import app.entities.Orderline;
 import app.entities.User;
 import app.exceptions.DatabaseException;
-import app.persistence.ConnectionPool;
-import app.persistence.UserMapper;
+import app.persistence.*;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
-import java.util.Objects;
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class UserController {
 
+    static User user;
     private static CupcakeController cupcakeController = new CupcakeController();
+    private static OrderMapper orderMapper = new OrderMapper();
+    private static OrderlineMapper orderlineMapper = new OrderlineMapper();
 
 
 
@@ -22,15 +27,56 @@ public class UserController {
         app.get("logout", ctx -> logout(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
-        app.get("addtobasket", ctx -> ctx.render("basket.html"));
+
+        app.post("addtobasket", ctx -> addtoBasket(ctx, connectionPool));
+        app.get("addtobasket", ctx -> addtoBasket(ctx, connectionPool));
+
+
+        app.get("savedOrders", ctx -> savedOrdersPage(ctx, connectionPool));
+        app.get("basket", ctx -> basket(ctx, connectionPool));
+        app.get("receipt", ctx -> receipt(ctx, connectionPool));
+        app.post("receipt", ctx -> receipt(ctx, connectionPool));
+    }
+
+    public static void receipt(Context ctx, ConnectionPool connectionPool) throws SQLException {
+        BasketMapper basketMapper = new BasketMapper();
+        OrderMapper orderMapper = new OrderMapper();
+        basketMapper.sendTotalPriceOfCupcakes(ctx);
+        cupcakeController.giveOrderlinesToHTML(connectionPool, ctx);
+
+        Order order = orderMapper.makeOrder(user, basketMapper.sendTotalPriceOfCupcakes(ctx),connectionPool);
+        List<Orderline> orderlines = basketMapper.getOrderlinesForBasket(ctx);
+        orderMapper.checkIfOrderShouldBeSavedForUser(order, ctx, connectionPool);
+        orderMapper.insertOrder(order, connectionPool);
+
+        Order newestOrder = orderMapper.getNewestOrder(connectionPool);
+
+        for (Orderline orderline : orderlines) {
+            orderline.setOrder_id(newestOrder.getId());
+        }
+        for (Orderline orderline : orderlines) {
+            orderlineMapper.insertOrderline(orderline, connectionPool);
+        }
+
+        ctx.render("receipt.html");
+        
+    }
+
+
+
+    public static void addtoBasket(Context ctx, ConnectionPool connectionPool) {
+        BasketMapper basketController = new BasketMapper();
+        basketController.createOrderlinesForBasket(ctx, connectionPool);
+        cupcakeController.giveCupcakeTopOptionsToHTML(connectionPool, ctx);
+        cupcakeController.giveCupcakeBottomOptionsToHTML(connectionPool, ctx);
+        ctx.render("home.html");
     }
 
     public static void basket(Context ctx, ConnectionPool connectionPool){
+        BasketMapper basketMapper = new BasketMapper();
+        basketMapper.sendTotalPriceOfCupcakes(ctx);
+        cupcakeController.giveOrderlinesToHTML(connectionPool, ctx);
         ctx.render("basket.html");
-    }
-
-    public static void savedOrder(Context ctx, ConnectionPool connectionPool){
-
     }
 
     private static void createUser(Context ctx, ConnectionPool connectionPool) {
@@ -68,7 +114,8 @@ public class UserController {
         // Check om bruger findes i databasen med de angivende username + password
 
             try {
-                User user = UserMapper.login(email, password, connectionPool);
+                user = UserMapper.login(email, password, connectionPool);
+
                 ctx.sessionAttribute("currentUser", user);
                 if(user.getRole().equals("user")) {
                     cupcakeController.giveCupcakeTopOptionsToHTML(connectionPool, ctx);
@@ -76,8 +123,6 @@ public class UserController {
                     ctx.render("home.html");
                 } else if (user.getRole().equals("admin")) {
                     ctx.render("admin_order.html");
-                } else {
-                    System.out.println("Doesn't have a valid role");
                 }
 
 
@@ -87,4 +132,25 @@ public class UserController {
                 ctx.render("index.html");
             }
         }
+
+    public static void savedOrdersPage(Context ctx, ConnectionPool connectionPool) throws SQLException {
+        BasketMapper basketMapper = new BasketMapper();
+
+        // Retrieve all orders for the current user
+        orderMapper.setSavedOrdersForUser(user, connectionPool);
+        List<Order> savedOrders = user.getOrders();
+
+        // Retrieve and set orderlines for each order
+        for (Order order : savedOrders) {
+            // Get orderlines for each specific order
+            List<Orderline> savedOrderlines = orderlineMapper.getOrderlineByOrderid(user, connectionPool, order.getId());
+            order.setOrderlines(savedOrderlines);  // Set orderlines for this specific order
+        }
+
+        // Set the savedOrders list in the context so we can access it in the template
+        ctx.attribute("savedOrders", savedOrders);
+
+        // Render the saved orders page
+        ctx.render("saved_orders.html");
+    }
 }

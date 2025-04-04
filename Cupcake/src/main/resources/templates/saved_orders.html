@@ -14,9 +14,9 @@
 
 <div class="container">
   <div class="top-bar">
-    <button class="left-button">Gemte ordrer</button>
+
     <div class="right">
-      <p>email-652@cphbusiness.dk</p>
+      <p><span th:text="${session.currentUser.email}"></span></p>
       <button class="basket-button">
         <img src="../public/images/basket_red_dot.png" class="basket-icon" alt="Kurv ikon" />
       </button>
@@ -26,74 +26,43 @@
   <div class="main-content">
     <div class="order-container">
 
-      <h2>Ordre 1</h2>
-      <table class="table-layout">
-        <thead>
-        <tr>
-          <th>Top</th>
-          <th>Bund</th>
-          <th>Antal</th>
-          <th>Pris</th>
-        </tr>
-        </thead>
-        <tbody>
+      <div th:each="order : ${savedOrders}">
+        <h3>Order [[${order.id}]]</h3>
 
-        <tr>
-          <td>Chokolade</td>
-          <td>Solbær</td>
-          <td>3</td>
-          <td>50.95 kr.</td>
-        </tr>
+        <!-- Table for displaying orderlines -->
+        <table class="table-layout">
+          <thead>
+          <tr>
+            <th>Top</th>
+            <th>Bund</th>
+            <th>Antal</th>
+            <th>Pris</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- Loop through orderlines specific to this order -->
+          <tr th:each="orderline : ${order.orderlines}">
+            <td th:text="${orderline.cupcake_top_name}"></td> <!-- Display top name -->
+            <td th:text="${orderline.cupcake_bottom_name}"></td> <!-- Display bottom name -->
+            <td th:text="${orderline.amount}"></td> <!-- Display quantity -->
+            <td th:text="${orderline.price}"></td> <!-- Display price -->
+          </tr>
+          </tbody>
+        </table>
 
-        <tr>
-          <td>Vanilje</td>
-          <td>Chokolade</td>
-          <td>1</td>
-          <td>25.00 kr.</td>
-        </tr>
-
-        </tbody>
-      </table>
-      <div class="total-pris">Total pris: 75.95 kr.</div>
-      <div class="order-actions">
-        <button class="trashcan-button" type="button">
-          <img src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ordre" />
-          Slet ordre
-        </button>
+        <!-- Display the total price of this order -->
+        <div class="total-pris" th:text="${'Total price: ' + order.total_price}"></div>
       </div>
-    </div>
 
 
-    <div class="order-container">
-      <h2>Ordre 2</h2>
-      <table class="table-layout">
-        <thead>
-        <tr>
-          <th>Top</th>
-          <th>Bund</th>
-          <th>Antal</th>
-          <th>Pris</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>Vanilje</td>
-          <td>Solbær</td>
-          <td>2</td>
-          <td>40.00 kr.</td>
-        </tr>
-        </tbody>
-      </table>
-      <div class="total-pris">Total pris: 75.95 kr.</div>
+
+
+
       <div class="order-actions">
-        <button class="trashcan-button" type="button">
-          <img src="../public/images/trashcan_icon.png" class="trashcan-icon" alt="Slet ordre" />
-          Slet ordre
-
-        </button>
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>
 </body>
