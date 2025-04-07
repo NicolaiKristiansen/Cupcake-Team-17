@@ -10,6 +10,7 @@ import java.util.List;
 
 public class AdminMapper {
 
+
     public static void deleteOrder(int order, ConnectionPool connectionPool) throws SQLException {
         //In the html we need to make it so when you select an order and press delete it calls this with the order as the parameter
 
@@ -62,7 +63,6 @@ public class AdminMapper {
     }
 
 
-    // to be made
     public static List<User> getAllUsersWithoutAdmin(ConnectionPool connectionPool) throws SQLException {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM \"user\" WHERE role = 'user'";

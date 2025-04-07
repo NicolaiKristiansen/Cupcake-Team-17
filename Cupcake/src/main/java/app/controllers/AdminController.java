@@ -80,7 +80,7 @@ public class AdminController {
             AdminMapper.deleteOrder(orderId, connectionPool);
             List<Order> orders = AdminMapper.getOrders(connectionPool);
             ctx.attribute("orders", orders);
-            ctx.redirect("/order");
+            ctx.redirect("/adminorder");
         } catch (NumberFormatException e) {
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
